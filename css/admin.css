@@ -1,0 +1,7 @@
+#dashboard-widgets .card h2 {
+    padding: 0;
+}
+
+#dashboard-widgets .card .button {
+    margin-bottom: 10px;
+}
