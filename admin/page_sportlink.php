@@ -4,6 +4,7 @@ if (! defined('ABSPATH')) {
 }
 
 require_once(dirname(__FILE__) . '/../includes/importers/class-team-importer.php');
+require_once(dirname(__FILE__) . '/../includes/importers/class-player-importer.php');
 
 if (! function_exists('fcmsl_page_sportlink')) {
     function fcmsl_page_sportlink()
@@ -48,8 +49,8 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                         $api = new FCM_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
                                         if (isset($_POST['fcm_import_teams']))
                                             $importer = new FCM_Sportlink_Team_Importer($api);
-                                        // else if (isset($_POST['fcm_import_players']))
-                                        //     $importer = new FCM_Sportlink_Player_Importer($api);
+                                        else if (isset($_POST['fcm_import_players']))
+                                            $importer = new FCM_Sportlink_Player_Importer($api);
                                         // else if (isset($_POST['fcm_import_matches']))
                                         //     $importer = new FCM_Sportlink_Match_Importer($api);
 
