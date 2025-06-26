@@ -21,8 +21,13 @@ if (! function_exists('fcmsl_page_sportlink')) {
                     <div class="postbox-container">
                         <div class="meta-box-sortables">
                             <div class="card">
-                                <form action="options.php<?php //menu_page_url('fcm-sportlink') 
-                                                            ?>" method="post">
+                                <?php
+                                $options = get_option('fcmsl_options');
+                                if (isset($options['fcmsl_field_automatic_import']) && $options['fcmsl_field_automatic_import'] == 1 && (!defined('DISABLE_WP_CRON') || constant('DISABLE_WP_CRON') !== true)) {
+                                    echo '<div class="error"><p>' . sprintf(__('Please hook WP-cron into the system task scheduler to enable automatic import. <a href="%s" target="_blank">More info</a>', 'fcm-sportlink'), 'https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/') . '</p></div>';
+                                }
+                                ?>
+                                <form action="options.php" method="post">
                                     <?php
                                     // output security fields for the registered setting "fcmsl_options"
                                     settings_fields('fcm-sportlink');

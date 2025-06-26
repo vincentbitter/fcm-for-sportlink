@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-if (! function_exists('fcmsl_field_sportlink_clientid_callback')) {
+if (! function_exists('fcmsl_field_text_callback')) {
     function fcmsl_field_text_callback($args)
     {
         $options = get_option('fcmsl_options');
@@ -12,6 +12,21 @@ if (! function_exists('fcmsl_field_sportlink_clientid_callback')) {
         <input type="text" id="<?php echo esc_attr($args['label_for']); ?>"
             name="fcmsl_options[<?php echo esc_attr($args['label_for']); ?>]"
             value="<?php echo isset($options[$args['label_for']]) ? esc_attr($options[$args['label_for']]) : ''; ?>">
+    <?php
+    }
+}
+
+if (! function_exists('fcmsl_field_toggle_callback')) {
+    function fcmsl_field_toggle_callback($args)
+    {
+        $options = get_option('fcmsl_options');
+    ?>
+        <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>"
+            name="fcmsl_options[<?php echo esc_attr($args['label_for']); ?>]"
+            value="1" <?php checked(
+                            1,
+                            (isset($options[$args['label_for']]) ? $options[$args['label_for']] : 0)
+                        ); ?>>
 <?php
     }
 }
@@ -30,7 +45,7 @@ if (! function_exists('fcmsl_settings_init')) {
             'fcm-sportlink'
         );
 
-        // Register a new field in the "wporg_section_developers" section, inside the "wporg" page.
+        // Register "Client ID" field: fcm-sportlink > fcmsl_section_settings > fcmsl_field_sportlink_clientid.
         add_settings_field(
             'fcmsl_field_sportlink_clientid',
             __('Sportlink client ID', 'fcm-sportlink'),
@@ -38,6 +53,16 @@ if (! function_exists('fcmsl_settings_init')) {
             'fcm-sportlink',
             'fcmsl_section_settings',
             array('label_for' => 'fcmsl_field_sportlink_clientid')
+        );
+
+        // Register "Automatic import" toggle: fcm-sportlink > fcmsl_section_settings > fcmsl_field_automatic_import.
+        add_settings_field(
+            'fcmsl_field_automatic_import',
+            __('Automatic import', 'fcm-sportlink'),
+            'fcmsl_field_toggle_callback',
+            'fcm-sportlink',
+            'fcmsl_section_settings',
+            array('label_for' => 'fcmsl_field_automatic_import')
         );
     }
 }

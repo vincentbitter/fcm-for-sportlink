@@ -19,6 +19,8 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+require_once('includes/cron/class-import-cron.php');
+
 // Register settings
 require_once('includes/settings.php');
 
@@ -69,4 +71,42 @@ if (! function_exists('fcmsl_admin_menu')) {
     }
 
     add_action('admin_menu', 'fcmsl_admin_menu', 20);
+}
+
+// Enable or disable cron on changing settings
+if (! function_exists('fcmsl_option_updated')) {
+    function fcmsl_option_updated($option_name, $old_value, $new_value)
+    {
+        if ($option_name === 'fcmsl_options') {
+            $old = isset($old_value['fcmsl_field_automatic_import']) && $old_value['fcmsl_field_automatic_import'] == 1;
+            $new = isset($new_value['fcmsl_field_automatic_import']) && $new_value['fcmsl_field_automatic_import'] == 1;
+            if ($new !== $old) {
+                $cron = new FCM_Import_Cron();
+                $new ? $cron->enable() : $cron->disable();
+            }
+        }
+    }
+    add_action('update_option', 'fcmsl_option_updated', 10, 3);
+}
+
+// On activation
+if (! function_exists('fcm_activated')) {
+    function fcm_activated()
+    {
+        if (get_option('fcmsl_options')['fcmsl_field_automatic_import']) {
+            (new FCM_Import_Cron())->enable();
+        }
+    }
+
+    register_activation_hook(__FILE__, 'fcm_activated');
+}
+
+// On deactivation
+if (! function_exists('fcm_deactivated')) {
+    function fcm_deactivated()
+    {
+        (new FCM_Import_Cron())->disable();
+    }
+
+    register_deactivation_hook(__FILE__, 'fcm_deactivated');
 }
