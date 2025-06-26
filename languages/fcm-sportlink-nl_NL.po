@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager - Sportlink\n"
-"POT-Creation-Date: 2025-06-26 19:39+0200\n"
-"PO-Revision-Date: 2025-06-26 19:50+0200\n"
+"POT-Creation-Date: 2025-06-27 00:14+0200\n"
+"PO-Revision-Date: 2025-06-27 00:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
@@ -15,47 +15,61 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/page_sportlink.php:32
+#: admin/page_sportlink.php:27
+#, php-format
+msgid ""
+"Please hook WP-cron into the system task scheduler to enable automatic "
+"import. <a href=\"%s\" target=\"_blank\">More info</a>"
+msgstr ""
+"Gebruikt WP-cron via de system task scheduler om automatisch te "
+"importeren. <a href=\"%s\" target=\"_blank\">Meer info</a>"
+
+#: admin/page_sportlink.php:38
 msgid "Save settings"
 msgstr "Instellingen opslaan"
 
-#: admin/page_sportlink.php:41
+#: admin/page_sportlink.php:47
 msgid "Manual import"
 msgstr "Handmatig importeren"
 
-#: admin/page_sportlink.php:46
+#: admin/page_sportlink.php:52
 msgid "Nonce verification failed"
 msgstr "Nonce-verificatie mislukt"
 
-#: admin/page_sportlink.php:57
+#: admin/page_sportlink.php:63
 msgid "Import not implemented yet"
 msgstr "Importeren nog niet mogelijk"
 
-#: admin/page_sportlink.php:60
+#: admin/page_sportlink.php:66
 #, php-format
 msgid "Imported %s new items, updated %s items, and deleted %s items"
-msgstr "%s Nieuwe items en %s gewijzigd items geïmporteerd. %s Items verwijderd."
+msgstr ""
+"%s Nieuwe items en %s gewijzigd items geïmporteerd. %s Items verwijderd."
 
-#: admin/page_sportlink.php:68
+#: admin/page_sportlink.php:74
 msgid "Import teams"
 msgstr "Importeer teams"
 
-#: admin/page_sportlink.php:69
+#: admin/page_sportlink.php:75
 msgid "Import players"
 msgstr "Importeer spelers"
 
-#: admin/page_sportlink.php:70
+#: admin/page_sportlink.php:76
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
-#: fcm-sportlink.php:33 fcm-sportlink.php:34
+#: fcm-sportlink.php:36 fcm-sportlink.php:37
 msgid "Sportlink"
 msgstr "Sportlink"
 
-#: includes/settings.php:28
+#: fcm-sportlink.php:80 includes/settings.php:43
 msgid "Settings"
 msgstr "Instellingen"
 
-#: includes/settings.php:36
+#: includes/settings.php:51
 msgid "Sportlink client ID"
 msgstr "Sportlink client ID"
+
+#: includes/settings.php:61
+msgid "Automatic import"
+msgstr "Automatisch importeren"
