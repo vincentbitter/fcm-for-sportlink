@@ -12,6 +12,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: fcm-sportlink
  * Domain Path: /languages
+ * Requires Plugins: football-club-manager
  */
 
 if (! defined('ABSPATH')) {
