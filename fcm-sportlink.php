@@ -73,6 +73,17 @@ if (! function_exists('fcmsl_admin_menu')) {
     add_action('admin_menu', 'fcmsl_admin_menu', 20);
 }
 
+// Show settings link on plugins page
+if (! function_exists('fcmsl_plugin_settings_link')) {
+    function fcmsl_plugin_settings_link($links)
+    {
+        $settings_link = '<a href="admin.php?page=fcm-sportlink">' . __('Settings') . '</a>';
+        array_unshift($links, $settings_link);
+        return $links;
+    }
+    add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'fcmsl_plugin_settings_link');
+}
+
 // Enable or disable cron on changing settings
 if (! function_exists('fcmsl_option_updated')) {
     function fcmsl_option_updated($option_name, $old_value, $new_value)
