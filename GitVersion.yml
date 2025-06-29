@@ -1,0 +1,6 @@
+mode: ContinuousDeployment
+tag-prefix: "[vV]"
+branches:
+  main:
+    increment: Minor
+    regex: main$
