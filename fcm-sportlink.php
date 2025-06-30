@@ -3,7 +3,7 @@
  * Plugin Name: Football Club Manager - Sportlink
  * Plugin URI: https://github.com/vincentbitter/fcm-sportlink
  * Description: Import data from Sportlink to Football Club Manager.
- * Version: 0.1
+ * Version: 0.0.0
  * Requires at least: 6.8.1
  * Requires PHP: 8.2
  * Author: Vincent Bitter
@@ -18,6 +18,8 @@
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
+
+define('FCM_SPORTLINK_VERSION', '0.0.0');
 
 require_once('includes/cron/class-import-cron.php');
 
@@ -47,7 +49,7 @@ if (! function_exists('fcmsl_register_administration_menu')) {
 if (! function_exists('fcmsl_admin_enqueue_scripts')) {
     function fcmsl_admin_enqueue_scripts()
     {
-        wp_enqueue_style('fcmsl-admin', plugins_url('css/admin.css', __FILE__));
+        wp_enqueue_style('fcmsl-admin', plugins_url('css/admin.css', __FILE__), array(), constant('FCM_SPORTLINK_VERSION'));
     }
 
     add_action('admin_enqueue_scripts', 'fcmsl_admin_enqueue_scripts');
@@ -77,7 +79,7 @@ if (! function_exists('fcmsl_admin_menu')) {
 if (! function_exists('fcmsl_plugin_settings_link')) {
     function fcmsl_plugin_settings_link($links)
     {
-        $settings_link = '<a href="admin.php?page=fcm-sportlink">' . __('Settings') . '</a>';
+        $settings_link = '<a href="admin.php?page=fcm-sportlink">' . __('Settings', 'fcm-sportlink') . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }

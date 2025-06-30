@@ -24,7 +24,9 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                 <?php
                                 $options = get_option('fcmsl_options');
                                 if (isset($options['fcmsl_field_automatic_import']) && $options['fcmsl_field_automatic_import'] == 1 && (!defined('DISABLE_WP_CRON') || constant('DISABLE_WP_CRON') !== true)) {
-                                    echo '<div class="error"><p>' . sprintf(__('Please hook WP-cron into the system task scheduler to enable automatic import. <a href="%s" target="_blank">More info</a>', 'fcm-sportlink'), 'https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/') . '</p></div>';
+                                    $error_text = esc_html__('Please hook WP-cron into the system task scheduler to enable automatic import.', 'fcm-sportlink');
+                                    $more_info_text = esc_html__('More info', 'fcm-sportlink');
+                                    echo '<div class="error"><p>' . $error_text . ' <a href="https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/" target="_blank">' . $more_info_text . '</a></p></div>';
                                 }
                                 ?>
                                 <form action="options.php" method="post">
@@ -63,7 +65,9 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                             echo '<div class="error"><p>' . __('Import not implemented yet', 'fcm-sportlink') . '</p></div>';
                                         } else {
                                             $report = $importer->import();
-                                            echo '<div class="notice notice-success is-dismissible"><p>' . sprintf(__('Imported %s new items, updated %s items, and deleted %s items', 'fcm-sportlink'), $report->created, $report->updated, $report->deleted) . '</p></div>';
+                                            /* translators: 1: New items, 2: Updated items, 3: Deleted items. */
+                                            $success_text = __('Imported %1$s new items, updated %2$s items, and deleted %3$s items', 'fcm-sportlink');
+                                            echo '<div class="notice notice-success is-dismissible"><p>' . sprintf($success_text, $report->created, $report->updated, $report->deleted) . '</p></div>';
                                         }
                                     }
                                 }

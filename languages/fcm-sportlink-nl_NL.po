@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager - Sportlink\n"
-"POT-Creation-Date: 2025-06-27 00:14+0200\n"
-"PO-Revision-Date: 2025-06-27 00:15+0200\n"
+"POT-Creation-Date: 2025-06-30 22:55+0200\n"
+"PO-Revision-Date: 2025-06-30 22:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
@@ -11,50 +11,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_x;_n;_e\n"
+"X-Poedit-KeywordsList: "
+"__;_x;_n;_e;esc_attr__;esc_attr_x;esc_attr_e;esc_html__;esc_html_x;esc_html_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/page_sportlink.php:27
-#, php-format
 msgid ""
 "Please hook WP-cron into the system task scheduler to enable automatic "
-"import. <a href=\"%s\" target=\"_blank\">More info</a>"
+"import."
 msgstr ""
-"Gebruikt WP-cron via de system task scheduler om automatisch te "
-"importeren. <a href=\"%s\" target=\"_blank\">Meer info</a>"
+"Gebruikt WP-cron via de system task scheduler om automatisch te importeren."
 
-#: admin/page_sportlink.php:38
+#: admin/page_sportlink.php:28
+msgid "More info"
+msgstr "Meer info"
+
+#: admin/page_sportlink.php:40
 msgid "Save settings"
 msgstr "Instellingen opslaan"
 
-#: admin/page_sportlink.php:47
+#: admin/page_sportlink.php:49
 msgid "Manual import"
 msgstr "Handmatig importeren"
 
-#: admin/page_sportlink.php:52
+#: admin/page_sportlink.php:54
 msgid "Nonce verification failed"
 msgstr "Nonce-verificatie mislukt"
 
-#: admin/page_sportlink.php:63
+#: admin/page_sportlink.php:65
 msgid "Import not implemented yet"
 msgstr "Importeren nog niet mogelijk"
 
-#: admin/page_sportlink.php:66
+#: admin/page_sportlink.php:69
 #, php-format
-msgid "Imported %s new items, updated %s items, and deleted %s items"
+msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items"
 msgstr ""
-"%s Nieuwe items en %s gewijzigd items geïmporteerd. %s Items verwijderd."
+"%1$s Nieuwe items en %2$s gewijzigd items geïmporteerd. %3$s Items "
+"verwijderd."
 
-#: admin/page_sportlink.php:74
+#: admin/page_sportlink.php:78
 msgid "Import teams"
 msgstr "Importeer teams"
 
-#: admin/page_sportlink.php:75
+#: admin/page_sportlink.php:79
 msgid "Import players"
 msgstr "Importeer spelers"
 
-#: admin/page_sportlink.php:76
+#: admin/page_sportlink.php:80
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
