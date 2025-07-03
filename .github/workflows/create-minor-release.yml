@@ -40,7 +40,7 @@ jobs:
 
       - name: Update version in files
         run: |
-          sed -i "s/ \* Version:.*/ \* Version: $GitVersion_FullSemVer/" football-club-manager.php
+          sed -i "s/ \* Version:.*/ \* Version: $GitVersion_FullSemVer/" fcm-sportlink.php
           sed -i "s/Stable tag:.*/Stable tag: $GitVersion_FullSemVer/" readme.txt
           git commit -am "Update version to $GitVersion_FullSemVer"
 
