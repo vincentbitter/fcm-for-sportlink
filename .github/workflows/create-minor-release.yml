@@ -33,6 +33,11 @@ jobs:
           useConfigFile: true
           configFilePath: .github/GitVersion.yml
 
+      - name: Generate changelog
+        run: |
+          git cliff --config .github/cliff.toml --tag $GitVersion_FullSemVer --output CHANGELOG.md
+          git add CHANGELOG.md
+
       - name: Update version in files
         run: |
           sed -i "s/ \* Version:.*/ \* Version: $GitVersion_FullSemVer/" football-club-manager.php
