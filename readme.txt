@@ -7,4 +7,5 @@ Stable tag: 0.0.0
 Requires PHP: 8.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
 Import data from Sportlink to Football Club Manager.

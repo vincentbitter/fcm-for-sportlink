@@ -14,6 +14,9 @@ jobs:
         with:
           versionSpec: "6.3.x"
 
+      - name: Use git-cliff
+        uses: kenji-miyake/setup-git-cliff@v2
+
       - name: Configure Git client
         run: |
           git config --global user.email "github-actions@github.com"
@@ -28,12 +31,11 @@ jobs:
         uses: gittools/actions/gitversion/execute@v3.2.1
         with:
           useConfigFile: true
-          configFilePath: GitVersion.yml
+          configFilePath: .github/GitVersion.yml
 
       - name: Update version in files
         run: |
-          sed -i "s/ \* Version:.*/ \* Version: $GitVersion_FullSemVer/" fcm-sportlink.php
-          sed -i "s/define('FCM_SPORTLINK_VERSION', '.*');/define('FCM_SPORTLINK_VERSION', '$GitVersion_FullSemVer');/" fcm-sportlink.php
+          sed -i "s/ \* Version:.*/ \* Version: $GitVersion_FullSemVer/" football-club-manager.php
           sed -i "s/Stable tag:.*/Stable tag: $GitVersion_FullSemVer/" readme.txt
           git commit -am "Update version to $GitVersion_FullSemVer"
 
@@ -41,3 +43,19 @@ jobs:
         run: |
           git tag -a "v$GitVersion_FullSemVer" -m "Release version $GitVersion_FullSemVer"
           git push --follow-tags origin main
+
+      - name: Create zip file
+        run: |
+          git archive --format zip --output ${{github.event.repository.name}}-v$GitVersion_FullSemVer.zip HEAD
+
+      - name: Generate release notes
+        run: git cliff --config .github/cliff.toml --current --output release-notes.md --strip header
+
+      - name: Create GitHub release
+        run: |
+          gh release create v${{ env.GitVersion_FullSemVer }} \
+            ${{github.workspace}}/${{ github.event.repository.name }}-v${{ env.GitVersion_FullSemVer }}.zip \
+            --title "v${{ env.GitVersion_FullSemVer }}" \
+            -F release-notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
