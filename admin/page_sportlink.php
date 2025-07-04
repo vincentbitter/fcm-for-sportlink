@@ -24,9 +24,9 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                 <?php
                                 $options = get_option('fcmsl_options');
                                 if (isset($options['fcmsl_field_automatic_import']) && $options['fcmsl_field_automatic_import'] == 1 && (!defined('DISABLE_WP_CRON') || constant('DISABLE_WP_CRON') !== true)) {
-                                    $error_text = esc_html__('Please hook WP-cron into the system task scheduler to enable automatic import.', 'fcm-sportlink');
-                                    $more_info_text = esc_html__('More info', 'fcm-sportlink');
-                                    echo '<div class="error"><p>' . $error_text . ' <a href="https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/" target="_blank">' . $more_info_text . '</a></p></div>';
+                                    $error_text = __('Please hook WP-cron into the system task scheduler to enable automatic import.', 'fcm-sportlink');
+                                    $more_info_text = __('More info', 'fcm-sportlink');
+                                    echo '<div class="error"><p>' . esc_html($error_text) . ' <a href="https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/" target="_blank">' . esc_html($more_info_text) . '</a></p></div>';
                                 }
                                 ?>
                                 <form action="options.php" method="post">
@@ -46,12 +46,12 @@ if (! function_exists('fcmsl_page_sportlink')) {
                     <div class="postbox-container">
                         <div class="meta-box-sortables">
                             <div class="card">
-                                <h2><?php _e('Manual import', 'fcm-sportlink'); ?></h2>
+                                <h2><?php esc_html_e('Manual import', 'fcm-sportlink'); ?></h2>
                                 <?php
                                 if (isset($_POST['action']) && $_POST['action'] == 'fcm_import') {
                                     // Check nonce
-                                    if (! isset($_POST['fcm_import_nonce']) || ! wp_verify_nonce($_POST['fcm_import_nonce'], 'fcm_import_nonce')) {
-                                        echo '<div class="error"><p>' . __('Nonce verification failed', 'fcm-sportlink') . '</p></div>';
+                                    if (! array_key_exists('fcm_import_nonce', $_POST) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['fcm_import_nonce'])), 'fcm_import_nonce')) {
+                                        echo '<div class="error"><p>' . esc_html__('Nonce verification failed', 'fcm-sportlink') . '</p></div>';
                                     } else {
                                         $api = new FCM_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
                                         if (isset($_POST['fcm_import_teams']))
@@ -62,12 +62,12 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                         //     $importer = new FCM_Sportlink_Match_Importer($api);
 
                                         if (!isset($importer)) {
-                                            echo '<div class="error"><p>' . __('Import not implemented yet', 'fcm-sportlink') . '</p></div>';
+                                            echo '<div class="error"><p>' . esc_html__('Import not implemented yet', 'fcm-sportlink') . '</p></div>';
                                         } else {
                                             $report = $importer->import();
                                             /* translators: 1: New items, 2: Updated items, 3: Deleted items. */
                                             $success_text = __('Imported %1$s new items, updated %2$s items, and deleted %3$s items', 'fcm-sportlink');
-                                            echo '<div class="notice notice-success is-dismissible"><p>' . sprintf($success_text, $report->created, $report->updated, $report->deleted) . '</p></div>';
+                                            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html(sprintf($success_text, $report->created, $report->updated, $report->deleted)) . '</p></div>';
                                         }
                                     }
                                 }

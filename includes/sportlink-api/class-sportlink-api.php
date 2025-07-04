@@ -24,7 +24,7 @@ class FCM_Sportlink_API
      */
     public function get_teams(): array
     {
-        return $this->get_json_array('teams', FCM_Sportlink_Team::class);
+        return $this->get_json_array('teams', array(), FCM_Sportlink_Team::class);
     }
 
     /**
@@ -34,7 +34,15 @@ class FCM_Sportlink_API
      */
     public function get_players($teamcode): array
     {
-        $players = $this->get_json_array('team-indeling?teamcode=' . $teamcode . '&lokaleteamcode=-1&toonlidfoto=ja', FCM_Sportlink_Player::class);
+        $players = $this->get_json_array(
+            'team-indeling',
+            array(
+                'teamcode' => $teamcode,
+                'lokaleteamcode' => -1,
+                'toonlidfoto' => 'ja'
+            ),
+            FCM_Sportlink_Player::class
+        );
         foreach ($players as $player) {
             $player->teamcode = $teamcode;
         }
@@ -44,13 +52,14 @@ class FCM_Sportlink_API
     /**
      * Retrieves a JSON array from the Sportlink API and converts it into an array of objects.
      *
-     * @param string $uri The URI to retrieve from the Sportlink API.
+     * @param string $slug The Sportlink API endpoint to retrieve data from.
+     * @param array $args The arguments to pass to the Sportlink API. The client_id will be added automatically.
      * @param string $class The class name of the objects to create.
      * @return array Array of objects.
      */
-    private function get_json_array($uri, $class)
+    private function get_json_array($slug, $args, $class)
     {
-        $content = $this->get_content($uri);
+        $content = $this->get_content($slug, $args);
         $data = json_decode($content, true);
 
         $result = array();
@@ -67,21 +76,15 @@ class FCM_Sportlink_API
     /**
      * Retrieves the content as string from the Sportlink API.
      *
-     * @param string $uri The URI to retrieve from the Sportlink API.
+     * @param string $slug The Sportlink API endpoint to retrieve data from.
+     * @param array $args The arguments to pass to the Sportlink API. The client_id will be added automatically.
      * @return string The content retrieved from the Sportlink API.
      */
-    private function get_content($uri)
+    private function get_content($slug, $args)
     {
-        $url = self::$_base_url . $uri;
-        $url .= (strstr($url, '?')) ? '&' : '?';
-        $url .= 'client_id=' . $this->_client_id;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $content = curl_exec($curl);
-        curl_close($curl);
-
-        return $content;
+        $args['client_id'] = $this->_client_id;
+        $query_params = '?' . http_build_query($args);
+        $response = wp_remote_get(self::$_base_url . $slug . $query_params);
+        return $response['body'];
     }
 }

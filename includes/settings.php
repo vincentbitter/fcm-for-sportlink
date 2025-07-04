@@ -31,11 +31,21 @@ if (! function_exists('fcmsl_field_toggle_callback')) {
     }
 }
 
+if (! function_exists('fcmsl_options_sanitize_callback')) {
+    function fcmsl_options_sanitize_callback($input)
+    {
+        $input['fcmsl_field_sportlink_clientid'] = sanitize_text_field($input['fcmsl_field_sportlink_clientid']);
+        $input['fcmsl_field_automatic_import'] = $input['fcmsl_field_automatic_import'] == 1 ? 1 : 0;
+
+        return $input;
+    }
+}
+
 if (! function_exists('fcmsl_settings_init')) {
     function fcmsl_settings_init()
     {
         // Register a new setting for "fcm-sportlink" page.
-        register_setting('fcm-sportlink', 'fcmsl_options');
+        register_setting('fcm-sportlink', 'fcmsl_options', 'fcmsl_options_sanitize_callback');
 
         // Register a new section in the "fcm-sportlink" page.
         add_settings_section(
