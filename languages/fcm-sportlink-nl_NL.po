@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager - Sportlink\n"
-"POT-Creation-Date: 2025-06-30 22:55+0200\n"
-"PO-Revision-Date: 2025-06-30 22:56+0200\n"
+"POT-Creation-Date: 2025-07-04 14:53+0200\n"
+"PO-Revision-Date: 2025-07-04 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
@@ -43,37 +43,57 @@ msgstr "Nonce-verificatie mislukt"
 msgid "Import not implemented yet"
 msgstr "Importeren nog niet mogelijk"
 
-#: admin/page_sportlink.php:69
+#: admin/page_sportlink.php:70
 #, php-format
-msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items"
+msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items."
 msgstr ""
 "%1$s Nieuwe items en %2$s gewijzigd items geïmporteerd. %3$s Items "
 "verwijderd."
 
-#: admin/page_sportlink.php:78
+#: admin/page_sportlink.php:74
+msgid "Response from Sportlink"
+msgstr "Antwoord van Sportlink"
+
+#: admin/page_sportlink.php:75
+msgid "Error message"
+msgstr "Foutmelding"
+
+#: admin/page_sportlink.php:76
+msgid "Error code"
+msgstr "Foutcode"
+
+#: admin/page_sportlink.php:77
+msgid "HTTP Code"
+msgstr "HTTP Code"
+
+#: admin/page_sportlink.php:87
 msgid "Import teams"
 msgstr "Importeer teams"
 
-#: admin/page_sportlink.php:79
+#: admin/page_sportlink.php:88
 msgid "Import players"
 msgstr "Importeer spelers"
 
-#: admin/page_sportlink.php:80
+#: admin/page_sportlink.php:89
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
-#: fcm-sportlink.php:36 fcm-sportlink.php:37
+#: fcm-sportlink.php:38 fcm-sportlink.php:39
 msgid "Sportlink"
 msgstr "Sportlink"
 
-#: fcm-sportlink.php:80 includes/settings.php:43
+#: fcm-sportlink.php:82 includes/settings.php:53
 msgid "Settings"
 msgstr "Instellingen"
 
-#: includes/settings.php:51
+#: includes/settings.php:61
 msgid "Sportlink client ID"
 msgstr "Sportlink client ID"
 
-#: includes/settings.php:61
+#: includes/settings.php:71
 msgid "Automatic import"
 msgstr "Automatisch importeren"
+
+#: includes/sportlink-api/class-sportlink-api.php:121
+msgid "Failed to retrieve data from Sportlink API."
+msgstr "Data ophalen uit de Sportlink API is niet gelukt."

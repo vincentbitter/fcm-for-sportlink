@@ -4,6 +4,8 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+require_once('class-sportlink-error.php');
+require_once('class-sportlink-exception.php');
 require_once('class-sportlink-team.php');
 require_once('class-sportlink-player.php');
 
@@ -60,17 +62,41 @@ class FCM_Sportlink_API
     private function get_json_array($slug, $args, $class)
     {
         $content = $this->get_content($slug, $args);
+        return $this->decode_json_to_array($content, $class);
+    }
+
+    /**
+     * Decode a json string into an array of objects.
+     * 
+     * @param string $content The json string to decode.
+     * @param string $class The class name of the objects to create.
+     * @return array Array of objects.
+     */
+    private function decode_json_to_array($content, $class)
+    {
         $data = json_decode($content, true);
 
         $result = array();
         foreach ($data as $item) {
-            $obj = new $class();
-            foreach ($item as $key => $value)
-                if (property_exists($obj, $key))
-                    $obj->{$key} = $value;
-            $result[] = $obj;
+            $result[] = $this->map_to_class_instance($item, $class);
         }
         return $result;
+    }
+
+    /**
+     * Maps an array to a class instance.
+     * 
+     * @param array $data The array to map.
+     * @param string $class The class name.
+     * @return object The class instance.
+     */
+    private function map_to_class_instance($data, $class)
+    {
+        $obj = new $class();
+        foreach ($data as $key => $value)
+            if (property_exists($obj, $key))
+                $obj->{$key} = $value;
+        return $obj;
     }
 
     /**
@@ -85,6 +111,14 @@ class FCM_Sportlink_API
         $args['client_id'] = $this->_client_id;
         $query_params = '?' . http_build_query($args);
         $response = wp_remote_get(self::$_base_url . $slug . $query_params);
-        return $response['body'];
+        $response_code = wp_remote_retrieve_response_code($response);
+        if ((!is_wp_error($response)) && (200 === $response_code)) {
+            return $response['body'];
+        } else {
+            $json = json_decode($response['body'], true);
+            $error = $this->map_to_class_instance($json['error'], FCM_Sportlink_Error::class);
+            $error->http_response_code = $response_code;
+            throw new SportlinkException(__('Failed to retrieve data from Sportlink API.', 'fcm-sportlink'), $error);
+        }
     }
 }

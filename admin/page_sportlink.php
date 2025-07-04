@@ -64,10 +64,19 @@ if (! function_exists('fcmsl_page_sportlink')) {
                                         if (!isset($importer)) {
                                             echo '<div class="error"><p>' . esc_html__('Import not implemented yet', 'fcm-sportlink') . '</p></div>';
                                         } else {
-                                            $report = $importer->import();
-                                            /* translators: 1: New items, 2: Updated items, 3: Deleted items. */
-                                            $success_text = __('Imported %1$s new items, updated %2$s items, and deleted %3$s items', 'fcm-sportlink');
-                                            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html(sprintf($success_text, $report->created, $report->updated, $report->deleted)) . '</p></div>';
+                                            try {
+                                                $report = $importer->import();
+                                                /* translators: 1: New items, 2: Updated items, 3: Deleted items. */
+                                                $success_text = __('Imported %1$s new items, updated %2$s items, and deleted %3$s items.', 'fcm-sportlink');
+                                                echo '<div class="notice notice-success is-dismissible"><p>' . esc_html(sprintf($success_text, $report->created, $report->updated, $report->deleted)) . '</p></div>';
+                                            } catch (SportlinkException $e) {
+                                                echo '<div class="error"><p>' . esc_html($e->getMessage(), 'fcm-sportlink') . '</p><p>' .
+                                                    '<strong>' . esc_html__('Response from Sportlink', 'fcm-sportlink') . ':</strong><br />' .
+                                                    esc_html__('Error message', 'fcm-sportlink') . ': ' . esc_html($e->getApiErrorMessage()) . '<br />' .
+                                                    esc_html__('Error code', 'fcm-sportlink') . ': ' . esc_html($e->getApiErrorCode()) . '<br />' .
+                                                    esc_html__('HTTP Code', 'fcm-sportlink') . ': ' . esc_html($e->getApiHttpResponseCode()) .
+                                                    '</p></div>';
+                                            }
                                         }
                                     }
                                 }
