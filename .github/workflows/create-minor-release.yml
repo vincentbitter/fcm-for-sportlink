@@ -51,7 +51,7 @@ jobs:
 
       - name: Create zip file
         run: |
-          git archive --format zip --output ${{github.event.repository.name}}-v$GitVersion_FullSemVer.zip HEAD
+          git archive --format zip --output ${{github.event.repository.name}}.zip HEAD
 
       - name: Generate release notes
         run: git cliff --config .github/cliff.toml --current --output release-notes.md --strip header
@@ -59,7 +59,7 @@ jobs:
       - name: Create GitHub release
         run: |
           gh release create v${{ env.GitVersion_FullSemVer }} \
-            ${{github.workspace}}/${{ github.event.repository.name }}-v${{ env.GitVersion_FullSemVer }}.zip \
+            ${{github.workspace}}/${{ github.event.repository.name }}.zip \
             --title "v${{ env.GitVersion_FullSemVer }}" \
             -F release-notes.md
         env:
