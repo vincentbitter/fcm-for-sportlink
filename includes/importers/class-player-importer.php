@@ -5,6 +5,7 @@ if (! defined('ABSPATH')) {
 }
 
 require_once('class-importer.php');
+require_once(ABSPATH . "wp-admin" . '/includes/image.php');
 
 class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
 {
@@ -86,9 +87,41 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
             $dirty = true;
         }
 
+        if ($dirty) {
+            wp_update_post($post);
+        }
+
         $meta_data = get_post_meta($post->ID);
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcm_player_first_name', $entity->voornaam) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcm_player_last_name', $entity->last_name()) || $dirty;
+
+        $old_image_md5 = get_post_meta($post->ID, '_fcm_player_sportlink_image_md5', true);
+        if (!empty($entity->foto)) {
+            $new_image = base64_decode($entity->foto);
+            $new_image_md5 = md5($new_image);
+            $sportlink_image_changed = $old_image_md5 != $new_image_md5;
+
+            if ($sportlink_image_changed) {
+                $current_image_md5 = '';
+                $current_image_id = get_post_thumbnail_id($post->ID, 'full');
+                if ($current_image_id) {
+                    $current_image_path = get_attached_file($current_image_id);
+                    if (file_exists($current_image_path)) {
+                        $current_image_md5 = md5_file($current_image_path);
+                    }
+                }
+
+                $current_image_is_from_sportlink = $current_image_md5 == $old_image_md5;
+                if ($current_image_md5 == '' || $current_image_is_from_sportlink) {
+                    if ($current_image_id)
+                        wp_delete_attachment($current_image_id, true);
+                    $this->upload_player_image($entity, $post->ID, $new_image);
+                }
+
+                $dirty = true;
+                update_post_meta($post->ID, '_fcm_player_sportlink_image_md5', $new_image_md5);
+            }
+        }
 
         $team_id = $this->_team_id_by_code[$entity->teamcode];
         if ($team_id != $meta_data['_fcm_player_team'][0]) {
@@ -96,9 +129,6 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
             $dirty = true;
         }
 
-        if ($dirty) {
-            wp_update_post($post);
-        }
         return $dirty;
     }
 
@@ -130,7 +160,14 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
                 '_fcm_player_team' => $this->_team_id_by_code[$entity->teamcode]
             )
         );
-        return wp_insert_post($post);
+        $post_id = wp_insert_post($post);
+        if (!empty($entity->foto)) {
+            $new_image = base64_decode($entity->foto);
+            $new_image_md5 = md5($new_image);
+            $this->upload_player_image($entity, $post_id, $new_image);
+            update_post_meta($post_id, '_fcm_player_sportlink_image_md5', $new_image_md5);
+        }
+        return $post_id;
     }
 
     /**
@@ -144,6 +181,30 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
         $relatiecode = get_post_meta($post->ID, '_fcm_player_external_id', true);
         if ($relatiecode) {
             return wp_trash_post($post->ID, false);
+        }
+    }
+
+    private function upload_player_image($entity, $post_id, $image)
+    {
+        $upload_dir = wp_upload_dir();
+        $image_name = '/player_' . $entity->relatiecode . '.gif';
+        $image_path = $upload_dir['path'] . $image_name;
+        if (file_put_contents($image_path, $image)) {
+            $attachment = array(
+                'post_mime_type' => 'image/gif',
+                'post_parent'    => $post_id,
+                'post_title'     => esc_html($entity->full_name()),
+                'post_content'   => '',
+                'post_status'    => 'inherit'
+            );
+            $attachment_id = wp_insert_attachment($attachment, $image_path, $post_id);
+            if (! is_wp_error($attachment_id)) {
+                $attachment_data = wp_generate_attachment_metadata($attachment_id, $image_path);
+                wp_update_attachment_metadata($attachment_id,  $attachment_data);
+                set_post_thumbnail($post_id, $attachment_id);
+            } else {
+                wp_delete_file($image_path);
+            }
         }
     }
 }
