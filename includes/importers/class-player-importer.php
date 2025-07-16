@@ -17,6 +17,14 @@ class FCMSL_Player_Importer extends FCMSL_Importer
         return 'fcmanager_player';
     }
 
+    public function import()
+    {
+        add_filter('fcmanager_skip_meta_box_save', '__return_true');
+        $report = parent::import();
+        remove_filter('fcmanager_skip_meta_box_save', '__return_true');
+        return $report;
+    }
+
     /**
      * Retrieve a list of all players from Sportlink for teams in Football Club Manager.
      * Technical staff and private profiles are excluded.
