@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/vincentbitter/fcm-sportlink
  * Description: Import data from Sportlink to Football Club Manager.
  * Version: 0.2.0
- * Requires at least: 6.8.1
+ * Requires at least: 6.8
  * Requires PHP: 8.2
  * Author: Vincent Bitter
  * Author URI: https://vincentbitter.nl
