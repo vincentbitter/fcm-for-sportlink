@@ -64,7 +64,7 @@ function fcmsl_page_sportlink()
                                             /* translators: 1: New items, 2: Updated items, 3: Deleted items. */
                                             $success_text = __('Imported %1$s new items, updated %2$s items, and deleted %3$s items.', 'fcm-sportlink');
                                             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html(sprintf($success_text, $report->created, $report->updated, $report->deleted)) . '</p></div>';
-                                        } catch (SportlinkException $e) {
+                                        } catch (FCMSL_Sportlink_Exception $e) {
                                             echo '<div class="error"><p>' . esc_html($e->getMessage(), 'fcm-sportlink') . '</p><p>' .
                                                 '<strong>' . esc_html__('Response from Sportlink', 'fcm-sportlink') . ':</strong><br />' .
                                                 esc_html__('Error message', 'fcm-sportlink') . ': ' . esc_html($e->getApiErrorMessage()) . '<br />' .
