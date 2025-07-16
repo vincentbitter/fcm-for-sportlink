@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-class FCM_Sportlink_Team
+class FCMSL_Team
 {
     public $teamcode;
     public $teamnaam;

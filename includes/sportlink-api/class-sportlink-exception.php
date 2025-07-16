@@ -4,16 +4,16 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-class SportlinkException extends Exception
+class FCMSL_Sportlink_Exception extends Exception
 {
-    // @var FCM_Sportlink_Error
+    // @var FCMSL_Sportlink_Error
     private $_response;
 
     /**
      * @param string $message Error message to show to the user
-     * @param FCM_Sportlink_Error $response Error response from the Sportlink API
+     * @param FCMSL_Sportlink_Error $response Error response from the Sportlink API
      */
-    public function __construct($message, FCM_Sportlink_Error $response)
+    public function __construct($message, FCMSL_Sportlink_Error $response)
     {
         parent::__construct($message);
         $this->_response = $response;

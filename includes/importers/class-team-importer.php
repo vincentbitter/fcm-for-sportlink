@@ -6,19 +6,19 @@ if (! defined('ABSPATH')) {
 
 require_once('class-importer.php');
 
-class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
+class FCMSL_Team_Importer extends FCMSL_Importer
 {
     private $_team_code_by_id = array();
 
     protected function get_post_type()
     {
-        return 'fcm_team';
+        return 'fcmanager_team';
     }
 
     /**
      * Retrieve a list of all teams from Sportlink.
      *
-     * @return array List of FCM_Sportlink_Team objects.
+     * @return array List of FCMSL_Team objects.
      */
     protected function get_entities()
     {
@@ -28,14 +28,14 @@ class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
     /**
      * Check if the given entity and post represent the same team.
      *
-     * @param FCM_Sportlink_Team $entity The Sportlink Team entity.
+     * @param FCMSL_Team $entity The Sportlink Team entity.
      * @param WP_Post $post The post object representing the team.
      * @return bool True if the entity and post have the same teamcode, false otherwise.
      */
     protected function is_same($entity, $post)
     {
         if (! isset($this->_team_code_by_id[$post->ID]))
-            $this->_team_code_by_id[$post->ID] = get_post_meta($post->ID, '_fcm_team_external_id', true);
+            $this->_team_code_by_id[$post->ID] = get_post_meta($post->ID, '_fcmanager_team_external_id', true);
         $teamcode = $this->_team_code_by_id[$post->ID];
 
         return $teamcode && $teamcode == $entity->teamcode;
@@ -45,7 +45,7 @@ class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
      * Update a team
      *
      * @param WP_Post $post The post object representing the team.
-     * @param FCM_Sportlink_Team $entity The Sportlink Team to update the post for
+     * @param FCMSL_Team $entity The Sportlink Team to update the post for
      * @return bool Whether the post was updated.
      */
     protected function handle_updated_post($post, $entity)
@@ -69,7 +69,7 @@ class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
     /**
      * Create a new team
      *
-     * @param FCM_Sportlink_Team $entity The Sportlink Team to create a post for
+     * @param FCMSL_Team $entity The Sportlink Team to create a post for
      * @return int The ID of the newly created post
      */
     protected function handle_new_post($entity)
@@ -79,7 +79,7 @@ class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
             'post_type' => $this->get_post_type(),
             'post_status' => 'publish',
             'meta_input' => array(
-                '_fcm_team_external_id' => $entity->teamcode
+                '_fcmanager_team_external_id' => $entity->teamcode
             )
         );
         return wp_insert_post($post);
@@ -93,7 +93,7 @@ class FCM_Sportlink_Team_Importer extends FCM_Sportlink_Importer
      */
     protected function handle_obsolete_post($post)
     {
-        $teamcode = get_post_meta($post->ID, '_fcm_team_external_id', true);
+        $teamcode = get_post_meta($post->ID, '_fcmanager_team_external_id', true);
         if ($teamcode) {
             return wp_trash_post($post->ID, false);
         }

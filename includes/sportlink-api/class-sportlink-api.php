@@ -9,7 +9,7 @@ require_once('class-sportlink-exception.php');
 require_once('class-sportlink-team.php');
 require_once('class-sportlink-player.php');
 
-class FCM_Sportlink_API
+class FCMSL_Sportlink_API
 {
     private static $_base_url = 'https://data.sportlink.com/';
     private $_client_id = null;
@@ -22,17 +22,17 @@ class FCM_Sportlink_API
     /**
      * Retrieves a list of all teams from Sportlink.
      *
-     * @return array List of FCM_Sportlink_Team objects.
+     * @return array List of FCMSL_Team objects.
      */
     public function get_teams(): array
     {
-        return $this->get_json_array('teams', array(), FCM_Sportlink_Team::class);
+        return $this->get_json_array('teams', array(), FCMSL_Team::class);
     }
 
     /**
      * Retrieves a list of all players from Sportlink.
      *
-     * @return array List of FCM_Sportlink_Player objects.
+     * @return array List of FCMSL_Player objects.
      */
     public function get_players($teamcode): array
     {
@@ -43,7 +43,7 @@ class FCM_Sportlink_API
                 'lokaleteamcode' => -1,
                 'toonlidfoto' => 'ja'
             ),
-            FCM_Sportlink_Player::class
+            FCMSL_Player::class
         );
         foreach ($players as $player) {
             $player->teamcode = $teamcode;
@@ -116,7 +116,7 @@ class FCM_Sportlink_API
             return $response['body'];
         } else {
             $json = json_decode($response['body'], true);
-            $error = $this->map_to_class_instance($json['error'], FCM_Sportlink_Error::class);
+            $error = $this->map_to_class_instance($json['error'], FCMSL_Sportlink_Error::class);
             $error->http_response_code = $response_code;
             throw new SportlinkException(__('Failed to retrieve data from Sportlink API.', 'fcm-sportlink'), $error);
         }

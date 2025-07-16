@@ -7,14 +7,14 @@ if (! defined('ABSPATH')) {
 require_once('class-importer.php');
 require_once(ABSPATH . "wp-admin" . '/includes/image.php');
 
-class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
+class FCMSL_Player_Importer extends FCMSL_Importer
 {
     private $_team_id_by_code = array();
     private $_player_code_by_id = array();
 
     protected function get_post_type()
     {
-        return 'fcm_player';
+        return 'fcmanager_player';
     }
 
     /**
@@ -22,19 +22,19 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
      * Technical staff and private profiles are excluded.
      * Players playing in multiple teams are only returned once, in the last team found.
      *
-     * @return array List of FCM_Sportlink_Player objects.
+     * @return array List of FCMSL_Player objects.
      */
     protected function get_entities()
     {
         $teams = get_posts(array(
-            'post_type' => 'fcm_team',
+            'post_type' => 'fcmanager_team',
             'numberposts' => -1
         ));
 
         $entities = array();
         $this->_team_id_by_code = array();
         foreach ($teams as $team) {
-            $teamcode = get_post_meta($team->ID, '_fcm_team_external_id', true);
+            $teamcode = get_post_meta($team->ID, '_fcmanager_team_external_id', true);
             $this->_team_id_by_code[$teamcode] = $team->ID;
 
             if ($teamcode)
@@ -56,14 +56,14 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
     /**
      * Check if the given entity and post represent the same player.
      *
-     * @param FCM_Sportlink_Player $entity The Sportlink Player entity.
+     * @param FCMSL_Player $entity The Sportlink Player entity.
      * @param WP_Post $post The post object representing the player.
      * @return bool True if the entity and post have the same relatiecode, false otherwise.
      */
     protected function is_same($entity, $post)
     {
         if (! isset($this->_player_code_by_id[$post->ID]))
-            $this->_player_code_by_id[$post->ID] = get_post_meta($post->ID, '_fcm_player_external_id', true);
+            $this->_player_code_by_id[$post->ID] = get_post_meta($post->ID, '_fcmanager_player_external_id', true);
         $relatiecode = $this->_player_code_by_id[$post->ID];
         return $relatiecode && $relatiecode == $entity->relatiecode;
     }
@@ -72,7 +72,7 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
      * Update a player
      *
      * @param WP_Post $post The post object representing the player.
-     * @param FCM_Sportlink_Player $entity The Sportlink Player to update the post for
+     * @param FCMSL_Player $entity The Sportlink Player to update the post for
      * @return bool Whether the post was updated.
      */
     protected function handle_updated_post($post, $entity)
@@ -92,10 +92,10 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
         }
 
         $meta_data = get_post_meta($post->ID);
-        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcm_player_first_name', $entity->voornaam) || $dirty;
-        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcm_player_last_name', $entity->last_name()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_player_first_name', $entity->voornaam) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_player_last_name', $entity->last_name()) || $dirty;
 
-        $old_image_md5 = get_post_meta($post->ID, '_fcm_player_sportlink_image_md5', true);
+        $old_image_md5 = get_post_meta($post->ID, '_fcmanager_player_sportlink_image_md5', true);
         if (!empty($entity->foto)) {
             $new_image = base64_decode($entity->foto);
             $new_image_md5 = md5($new_image);
@@ -119,13 +119,13 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
                 }
 
                 $dirty = true;
-                update_post_meta($post->ID, '_fcm_player_sportlink_image_md5', $new_image_md5);
+                update_post_meta($post->ID, '_fcmanager_player_sportlink_image_md5', $new_image_md5);
             }
         }
 
         $team_id = $this->_team_id_by_code[$entity->teamcode];
-        if ($team_id != $meta_data['_fcm_player_team'][0]) {
-            update_post_meta($post->ID, '_fcm_player_team', $team_id);
+        if ($team_id != $meta_data['_fcmanager_player_team'][0]) {
+            update_post_meta($post->ID, '_fcmanager_player_team', $team_id);
             $dirty = true;
         }
 
@@ -144,7 +144,7 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
     /**
      * Create a new player
      *
-     * @param FCM_Sportlink_Player $entity The Sportlink Player to create a post for
+     * @param FCMSL_Player $entity The Sportlink Player to create a post for
      * @return int The ID of the newly created post
      */
     protected function handle_new_post($entity)
@@ -154,10 +154,10 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
             'post_type' => $this->get_post_type(),
             'post_status' => 'publish',
             'meta_input' => array(
-                '_fcm_player_external_id' => $entity->relatiecode,
-                '_fcm_player_first_name' => $entity->voornaam,
-                '_fcm_player_last_name' => $entity->last_name(),
-                '_fcm_player_team' => $this->_team_id_by_code[$entity->teamcode]
+                '_fcmanager_player_external_id' => $entity->relatiecode,
+                '_fcmanager_player_first_name' => $entity->voornaam,
+                '_fcmanager_player_last_name' => $entity->last_name(),
+                '_fcmanager_player_team' => $this->_team_id_by_code[$entity->teamcode]
             )
         );
         $post_id = wp_insert_post($post);
@@ -165,7 +165,7 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
             $new_image = base64_decode($entity->foto);
             $new_image_md5 = md5($new_image);
             $this->upload_player_image($entity, $post_id, $new_image);
-            update_post_meta($post_id, '_fcm_player_sportlink_image_md5', $new_image_md5);
+            update_post_meta($post_id, '_fcmanager_player_sportlink_image_md5', $new_image_md5);
         }
         return $post_id;
     }
@@ -178,7 +178,7 @@ class FCM_Sportlink_Player_Importer extends FCM_Sportlink_Importer
      */
     protected function handle_obsolete_post($post)
     {
-        $relatiecode = get_post_meta($post->ID, '_fcm_player_external_id', true);
+        $relatiecode = get_post_meta($post->ID, '_fcmanager_player_external_id', true);
         if ($relatiecode) {
             return wp_trash_post($post->ID, false);
         }

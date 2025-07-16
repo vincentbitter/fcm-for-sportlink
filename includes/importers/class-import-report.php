@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-class FCM_Sportlink_Import_Report
+class FCMSL_Import_Report
 {
     public $created;
     public $updated;

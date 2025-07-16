@@ -7,9 +7,9 @@ if (! defined('ABSPATH')) {
 require_once(dirname(__FILE__) . '/../sportlink-api/class-sportlink-api.php');
 require_once('class-import-report.php');
 
-abstract class FCM_Sportlink_Importer
+abstract class FCMSL_Importer
 {
-    /** @var FCM_Sportlink_API */
+    /** @var FCMSL_Sportlink_API */
     protected $_api = null;
 
     public function __construct($api)
@@ -49,7 +49,7 @@ abstract class FCM_Sportlink_Importer
                 $deleted++;
         }
 
-        return new FCM_Sportlink_Import_Report($created, $updated, $deleted);
+        return new FCMSL_Import_Report($created, $updated, $deleted);
     }
 
     protected function get_posts()

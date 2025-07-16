@@ -19,7 +19,7 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('FCM_SPORTLINK_VERSION', '0.0.0');
+define('FCMSL_VERSION', '0.0.0');
 
 require_once('includes/cron/class-import-cron.php');
 
@@ -30,96 +30,89 @@ require_once('includes/settings.php');
 require_once('admin/page_sportlink.php');
 
 // Register administration menu
-if (! function_exists('fcmsl_register_administration_menu')) {
-    function fcmsl_register_administration_menu()
-    {
-        add_submenu_page(
-            'fcm',
-            __('Sportlink', 'fcm-sportlink'),
-            __('Sportlink', 'fcm-sportlink'),
-            'manage_options',
-            'fcm-sportlink',
-            'fcmsl_page_sportlink',
-            20
-        );
-    }
+function fcmsl_register_administration_menu()
+{
+    add_submenu_page(
+        'fcmanager',
+        __('Sportlink', 'fcm-sportlink'),
+        __('Sportlink', 'fcm-sportlink'),
+        'manage_options',
+        'fcm-sportlink',
+        'fcmsl_page_sportlink',
+        20
+    );
 }
+
 
 // Add CSS files
-if (! function_exists('fcmsl_admin_enqueue_scripts')) {
-    function fcmsl_admin_enqueue_scripts()
-    {
-        wp_enqueue_style('fcmsl-admin', plugins_url('css/admin.css', __FILE__), array(), constant('FCM_SPORTLINK_VERSION'));
-    }
-
-    add_action('admin_enqueue_scripts', 'fcmsl_admin_enqueue_scripts');
+function fcmsl_admin_enqueue_scripts()
+{
+    wp_enqueue_style('fcmsl-admin', plugins_url('css/admin.css', __FILE__), array(), constant('FCMSL_VERSION'));
 }
+
+add_action('admin_enqueue_scripts', 'fcmsl_admin_enqueue_scripts');
+
 
 // On admin init
-if (! function_exists('fcmsl_admin_init')) {
-    function fcmsl_admin_init()
-    {
-        fcmsl_settings_init();
-    }
-
-    add_action('admin_init', 'fcmsl_admin_init');
+function fcmsl_admin_init()
+{
+    fcmsl_settings_init();
 }
+
+add_action('admin_init', 'fcmsl_admin_init');
+
 
 // On admin menu
-if (! function_exists('fcmsl_admin_menu')) {
-    function fcmsl_admin_menu()
-    {
-        fcmsl_register_administration_menu();
-    }
-
-    add_action('admin_menu', 'fcmsl_admin_menu', 20);
+function fcmsl_admin_menu()
+{
+    fcmsl_register_administration_menu();
 }
+
+add_action('admin_menu', 'fcmsl_admin_menu', 20);
+
 
 // Show settings link on plugins page
-if (! function_exists('fcmsl_plugin_settings_link')) {
-    function fcmsl_plugin_settings_link($links)
-    {
-        $settings_link = '<a href="admin.php?page=fcm-sportlink">' . __('Settings', 'fcm-sportlink') . '</a>';
-        array_unshift($links, $settings_link);
-        return $links;
-    }
-    add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'fcmsl_plugin_settings_link');
+function fcmsl_plugin_settings_link($links)
+{
+    $settings_link = '<a href="admin.php?page=fcm-sportlink">' . __('Settings', 'fcm-sportlink') . '</a>';
+    array_unshift($links, $settings_link);
+    return $links;
 }
+
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'fcmsl_plugin_settings_link');
+
 
 // Enable or disable cron on changing settings
-if (! function_exists('fcmsl_option_updated')) {
-    function fcmsl_option_updated($option_name, $old_value, $new_value)
-    {
-        if ($option_name === 'fcmsl_options') {
-            $old = isset($old_value['fcmsl_field_automatic_import']) && $old_value['fcmsl_field_automatic_import'] == 1;
-            $new = isset($new_value['fcmsl_field_automatic_import']) && $new_value['fcmsl_field_automatic_import'] == 1;
-            if ($new !== $old) {
-                $cron = new FCM_Import_Cron();
-                $new ? $cron->enable() : $cron->disable();
-            }
+function fcmsl_option_updated($option_name, $old_value, $new_value)
+{
+    if ($option_name === 'fcmsl_options') {
+        $old = isset($old_value['fcmsl_field_automatic_import']) && $old_value['fcmsl_field_automatic_import'] == 1;
+        $new = isset($new_value['fcmsl_field_automatic_import']) && $new_value['fcmsl_field_automatic_import'] == 1;
+        if ($new !== $old) {
+            $cron = new FCMSL_Import_Cron();
+            $new ? $cron->enable() : $cron->disable();
         }
     }
-    add_action('update_option', 'fcmsl_option_updated', 10, 3);
 }
+
+add_action('update_option', 'fcmsl_option_updated', 10, 3);
+
 
 // On activation
-if (! function_exists('fcm_activated')) {
-    function fcm_activated()
-    {
-        if (get_option('fcmsl_options')['fcmsl_field_automatic_import']) {
-            (new FCM_Import_Cron())->enable();
-        }
+function fcmsl_activated()
+{
+    if (get_option('fcmsl_options')['fcmsl_field_automatic_import']) {
+        (new FCMSL_Import_Cron())->enable();
     }
-
-    register_activation_hook(__FILE__, 'fcm_activated');
 }
+
+register_activation_hook(__FILE__, 'fcmsl_activated');
+
 
 // On deactivation
-if (! function_exists('fcm_deactivated')) {
-    function fcm_deactivated()
-    {
-        (new FCM_Import_Cron())->disable();
-    }
-
-    register_deactivation_hook(__FILE__, 'fcm_deactivated');
+function fcmsl_deactivated()
+{
+    (new FCMSL_Import_Cron())->disable();
 }
+
+register_deactivation_hook(__FILE__, 'fcmsl_deactivated');

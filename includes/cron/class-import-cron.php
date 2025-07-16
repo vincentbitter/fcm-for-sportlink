@@ -5,22 +5,22 @@ if (! defined('ABSPATH')) {
 }
 
 add_action('fcmsl_import_cron_hook', function () {
-    (new FCM_Import_Cron())->run();
+    (new FCMSL_Import_Cron())->run();
 });
 
-class FCM_Import_Cron
+class FCMSL_Import_Cron
 {
     public function run()
     {
         if (!defined('DISABLE_WP_CRON') || constant('DISABLE_WP_CRON') !== true)
             return;
 
-        $api = new FCM_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
-        $importer = new FCM_Sportlink_Team_Importer($api);
+        $api = new FCMSL_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
+        $importer = new FCMSL_Team_Importer($api);
         $importer->import();
-        $importer = new FCM_Sportlink_Player_Importer($api);
+        $importer = new FCMSL_Player_Importer($api);
         $importer->import();
-        // $importer = new FCM_Sportlink_Match_Importer($api);
+        // $importer = new FCMSL_Match_Importer($api);
         // $importer->import();
     }
 
