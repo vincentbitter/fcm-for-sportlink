@@ -45,7 +45,7 @@ function fcmsl_page_sportlink()
                             <?php
                             if (isset($_POST['action']) && $_POST['action'] == 'fcmsl_import') {
                                 // Check nonce
-                                if (! array_key_exists('fcmsl_import_nonce', $_POST) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['fcmsl_import_nonce'])), 'fcmsl_import_nonce')) {
+                                if (!check_admin_referer('fcmsl_import', 'fcmsl_import_nonce')) {
                                     echo '<div class="error"><p>' . esc_html__('Nonce verification failed', 'fcm-sportlink') . '</p></div>';
                                 } else {
                                     $api = new FCMSL_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
@@ -77,7 +77,7 @@ function fcmsl_page_sportlink()
                             }
                             ?>
                             <form method="POST">
-                                <?php wp_nonce_field('fcmsl_import_nonce', 'fcmsl_import_nonce'); ?>
+                                <?php wp_nonce_field('fcmsl_import', 'fcmsl_import_nonce'); ?>
                                 <input type="hidden" name="action" value="fcmsl_import" value="true">
                                 <?php submit_button(__('Import teams', 'fcm-sportlink'), 'primary', 'fcmsl_import_teams', false); ?>
                                 <?php submit_button(__('Import players', 'fcm-sportlink'), 'primary', 'fcmsl_import_players', false); ?>
