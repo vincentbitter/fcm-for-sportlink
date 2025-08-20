@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2025-08-20
+
+### 🚀 Features
+
+- Support Football Club Manager 0.2.0
+
+### 🐛 Bug Fixes
+
+- Require WordPress 6.8 (major) instead of 6.8.1
+- Refresh CSS on new version.
+- Exception in exception handling due to renaming SportlinkException to FCMSL_Sportlink_Exception..
+- Disable meta box save to avoid exceptions on nonce validation.
+- Plugin Check findings.
+
+### 📚 Documentation
+
+- Improved readme for Github and Wordpress Plugin Repository.
+
+### ⚙️  Miscellaneous Tasks
+
+- *(security)* Improve nonce validation.
+- Lower minimum PHP version requirement to 7.4.
+
 ## [0.2.0] - 2025-07-04
 
 ### 🚀 Features
