@@ -95,7 +95,7 @@ class FCMSL_Sportlink_API
         $obj = new $class();
         foreach ($data as $key => $value)
             if (property_exists($obj, $key))
-                $obj->{$key} = $value;
+                $obj->{$key} = sanitize_text_field($value);
         return $obj;
     }
 
@@ -118,7 +118,7 @@ class FCMSL_Sportlink_API
             $json = json_decode($response['body'], true);
             $error = $this->map_to_class_instance($json['error'], FCMSL_Sportlink_Error::class);
             $error->http_response_code = $response_code;
-            throw new FCMSL_Sportlink_Exception(__('Failed to retrieve data from Sportlink API.', 'fcm-sportlink'), $error);
+            throw new FCMSL_Sportlink_Exception(esc_html__('Failed to retrieve data from Sportlink API.', 'fcm-sportlink'), $error);
         }
     }
 }

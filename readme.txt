@@ -1,6 +1,6 @@
 === Football Club Manager - Sportlink ===
 Contributors: vincentbitter
-Tags: soccer, football, sports, teams, matches, Sportlink, KNVB, sync
+Tags: soccer, teams, matches, Sportlink, KNVB
 Requires at least: 6.8
 Tested up to: 6.8
 Stable tag: 0.2.0
