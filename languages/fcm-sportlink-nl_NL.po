@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager - Sportlink\n"
-"POT-Creation-Date: 2025-07-04 14:53+0200\n"
-"PO-Revision-Date: 2025-07-04 14:54+0200\n"
+"POT-Creation-Date: 2025-08-20 19:47+0200\n"
+"PO-Revision-Date: 2025-08-20 19:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
@@ -16,81 +16,81 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/page_sportlink.php:27
+#: admin/page_sportlink.php:26
 msgid ""
 "Please hook WP-cron into the system task scheduler to enable automatic "
 "import."
 msgstr ""
 "Gebruikt WP-cron via de system task scheduler om automatisch te importeren."
 
-#: admin/page_sportlink.php:28
+#: admin/page_sportlink.php:27
 msgid "More info"
 msgstr "Meer info"
 
-#: admin/page_sportlink.php:40
+#: admin/page_sportlink.php:35
 msgid "Save settings"
 msgstr "Instellingen opslaan"
 
-#: admin/page_sportlink.php:49
+#: admin/page_sportlink.php:44
 msgid "Manual import"
 msgstr "Handmatig importeren"
 
-#: admin/page_sportlink.php:54
+#: admin/page_sportlink.php:49
 msgid "Nonce verification failed"
 msgstr "Nonce-verificatie mislukt"
 
-#: admin/page_sportlink.php:65
+#: admin/page_sportlink.php:60
 msgid "Import not implemented yet"
 msgstr "Importeren nog niet mogelijk"
 
-#: admin/page_sportlink.php:70
+#: admin/page_sportlink.php:65
 #, php-format
 msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items."
 msgstr ""
 "%1$s Nieuwe items en %2$s gewijzigd items geïmporteerd. %3$s Items "
 "verwijderd."
 
-#: admin/page_sportlink.php:74
+#: admin/page_sportlink.php:69
 msgid "Response from Sportlink"
 msgstr "Antwoord van Sportlink"
 
-#: admin/page_sportlink.php:75
+#: admin/page_sportlink.php:70
 msgid "Error message"
 msgstr "Foutmelding"
 
-#: admin/page_sportlink.php:76
+#: admin/page_sportlink.php:71
 msgid "Error code"
 msgstr "Foutcode"
 
-#: admin/page_sportlink.php:77
+#: admin/page_sportlink.php:72
 msgid "HTTP Code"
 msgstr "HTTP Code"
 
-#: admin/page_sportlink.php:87
+#: admin/page_sportlink.php:82
 msgid "Import teams"
 msgstr "Importeer teams"
 
-#: admin/page_sportlink.php:88
+#: admin/page_sportlink.php:83
 msgid "Import players"
 msgstr "Importeer spelers"
 
-#: admin/page_sportlink.php:89
+#: admin/page_sportlink.php:84
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
-#: fcm-sportlink.php:38 fcm-sportlink.php:39
+#: fcm-sportlink.php:37 fcm-sportlink.php:38
 msgid "Sportlink"
 msgstr "Sportlink"
 
-#: fcm-sportlink.php:82 includes/settings.php:53
+#: fcm-sportlink.php:77 includes/settings.php:48
 msgid "Settings"
 msgstr "Instellingen"
 
-#: includes/settings.php:61
+#: includes/settings.php:56
 msgid "Sportlink client ID"
 msgstr "Sportlink client ID"
 
-#: includes/settings.php:71
+#: includes/settings.php:66
 msgid "Automatic import"
 msgstr "Automatisch importeren"
 
