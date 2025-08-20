@@ -64,32 +64,32 @@ See what’s new in each release on the [Changelog page](https://github.com/vinc
 
 ## ❓ FAQ
 
-**What is Sportlink, and why should I integrate it with Football Club Manager?**  
+❔ **What is Sportlink, and why should I integrate it with Football Club Manager?**  
 Sportlink is a platform used by many Dutch football clubs to manage match schedules, team data, and results. Integrating it with Football Club Manager allows you to automatically display up-to-date information on your WordPress site without manual input.
 
-**Do I need coding experience to use this plugin?**  
+❔ **Do I need coding experience to use this plugin?**  
 Not at all! Once installed and configured, the plugin handles the data import automatically. You just need access to your WordPress dashboard and Sportlink Client ID.
 
-**How often does the plugin sync data from Sportlink?**  
+❔ **How often does the plugin sync data from Sportlink?**  
 Data is synchronized hourly.
 
-**What kind of data is imported from Sportlink?**
+❔ **What kind of data is imported from Sportlink?**
 
 - Team rosters and player profiles
 - Player photos
 - Match schedules and results _(coming soon!)_
 - League standings _(coming soon!)_
 
-**Can player photos still be uploaded in WordPress, or will these be overridden?**  
+❔ **Can player photos still be uploaded in WordPress, or will these be overridden?**  
 The plugin contains a smart algorithm to check if the current player photo was manually uploaded in WordPress. If so, it won't override it with the photos from Sportlink.
 
-**Can I manually trigger a sync?**  
+❔ **Can I manually trigger a sync?**  
 Yes! There’s a “Sync Now” button in the plugin settings that lets you fetch the latest data on demand.
 
-**Is this plugin compatible with other WordPress themes or plugins?**  
+❔ **Is this plugin compatible with other WordPress themes or plugins?**  
 It’s designed to work seamlessly with Football Club Manager. While it should play nicely with most themes, custom styling may be needed depending on your setup.
 
-**Where can I report bugs or request features?**  
+❔ **Where can I report bugs or request features?**  
 Head over to the [Issues tab](https://github.com/vincentbitter/fcm-sportlink/issues) on GitHub to report bugs or suggest new features.
 
 ---
