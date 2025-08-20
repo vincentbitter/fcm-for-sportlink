@@ -11,7 +11,7 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 ## 🚀 Features
 
 - 🔄 Automatic import of KNVB data from Sportlink
-- 👥 Update team rosters and player profiles  
+- 👥 Update team rosters and player profiles
 - 🖼️ Download player photos from Sportlink
 - 📅 Sync match schedules and results (coming soon!)
 - 🏆 Import league standings (coming soon!)
@@ -22,8 +22,8 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 
 ## 📋 Requirements
 
-- WordPress 5.0 or higher  
-- PHP 7.4 or higher  
+- WordPress 5.0 or higher
+- PHP 7.4 or higher
 - [Football Club Manager](https://wordpress.org/plugins/football-club-manager/) plugin installed and activated
 
 ---
@@ -41,7 +41,7 @@ You can install the plugin in one of two ways:
 
 ### Option 2: Clone the Repository (development version)
 
-1. Open your terminal and run:  
+1. Open your terminal and run:
    ```
    git clone https://github.com/vincentbitter/fcm-sportlink.git
    ```
@@ -64,47 +64,33 @@ See what’s new in each release on the [Changelog page](https://github.com/vinc
 
 ## ❓ FAQ
 
-### Q: What is Sportlink, and why should I integrate it with Football Club Manager?
-**A:** Sportlink is a platform used by many Dutch football clubs to manage match schedules, team data, and results. Integrating it with Football Club Manager allows you to automatically display up-to-date information on your WordPress site without manual input.
+**What is Sportlink, and why should I integrate it with Football Club Manager?**  
+Sportlink is a platform used by many Dutch football clubs to manage match schedules, team data, and results. Integrating it with Football Club Manager allows you to automatically display up-to-date information on your WordPress site without manual input.
 
----
+**Do I need coding experience to use this plugin?**  
+Not at all! Once installed and configured, the plugin handles the data import automatically. You just need access to your WordPress dashboard and Sportlink Client ID.
 
-### Q: Do I need coding experience to use this plugin?
-**A:** Not at all! Once installed and configured, the plugin handles the data import automatically. You just need access to your WordPress dashboard and Sportlink Client ID.
+**How often does the plugin sync data from Sportlink?**  
+Data is synchronized hourly.
 
----
+**What kind of data is imported from Sportlink?**
 
-### Q: How often does the plugin sync data from Sportlink?
-**A:** Data is synchronized hourly.
-
----
-
-### Q: What kind of data is imported from Sportlink?
-**A:** The plugin can import:
 - Team rosters and player profiles
 - Player photos
-- Match schedules and results (coming soon!)
-- League standings (coming soon!)
+- Match schedules and results _(coming soon!)_
+- League standings _(coming soon!)_
 
----
+**Can player photos still be uploaded in WordPress, or will these be overridden?**  
+The plugin contains a smart algorithm to check if the current player photo was manually uploaded in WordPress. If so, it won't override it with the photos from Sportlink.
 
-### Q: Can player photos still be uploaded in Wordpress, or will these be overridden?
-**A:** The plugin contains a smart algorithm to check if the current player photo was manually uploaded in Wordpress. If so, it won't override it with the photos from Sportlink.
+**Can I manually trigger a sync?**  
+Yes! There’s a “Sync Now” button in the plugin settings that lets you fetch the latest data on demand.
 
----
+**Is this plugin compatible with other WordPress themes or plugins?**  
+It’s designed to work seamlessly with Football Club Manager. While it should play nicely with most themes, custom styling may be needed depending on your setup.
 
-### Q: Can I manually trigger a sync?
-**A:** Yes! There’s a “Sync Now” button in the plugin settings that lets you fetch the latest data on demand.
-
----
-
-### Q: Is this plugin compatible with other WordPress themes or plugins?
-**A:** It’s designed to work seamlessly with Football Club Manager. While it should play nicely with most themes, custom styling may be needed depending on your setup.
-
----
-
-### Q: Where can I report bugs or request features?
-**A:** Head over to the [Issues tab](https://github.com/vincentbitter/fcm-sportlink/issues) on GitHub to report bugs or suggest new features.
+**Where can I report bugs or request features?**  
+Head over to the [Issues tab](https://github.com/vincentbitter/fcm-sportlink/issues) on GitHub to report bugs or suggest new features.
 
 ---
 
