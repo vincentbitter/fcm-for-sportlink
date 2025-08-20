@@ -5,7 +5,7 @@
  * Description: Import data from Sportlink to Football Club Manager.
  * Version: 0.2.0
  * Requires at least: 6.8
- * Requires PHP: 8.2
+ * Requires PHP: 7.4
  * Author: Vincent Bitter
  * Author URI: https://vincentbitter.nl
  * License: GPLv3
