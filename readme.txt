@@ -34,6 +34,16 @@ It automatically imports KNVB data from Sportlink, updates team rosters and play
 5. Choose whether to enable **automatic import**.
 6. Optionally, use the **“Sync Now”** button to manually fetch the latest data.
 
+== Privacy & External Services ==
+
+This plugin connects to the Sportlink API (https://data.sportlink.com) to retrieve up-to-date information about teams, players, and matches.
+
+It sends the Sportlink client ID and previously received team IDs from Sportlink. The plugin does not transmit any WordPress content, configuration, files, or user data.
+
+For more information, please refer to Sportlink's Terms of Service and Privacy Policy:
+- Terms of Service: https://sportlinkservices.freshdesk.com/nl/support/solutions/folders/9000176717
+- Privacy Policy: https://www.sportlink.nl/privacybeleid/
+
 == Frequently Asked Questions ==
 
 = What is Sportlink, and why should I integrate it with Football Club Manager? =

@@ -56,6 +56,12 @@ After activation, navigate to **Settings → FCM Sportlink** in your WordPress d
 
 ---
 
+## 🔒 Privacy & External Services
+
+This plugin connects to the [Sportlink API](https://data.sportlink.com) to retrieve up-to-date information about teams, players, and matches. The plugin sends the **Sportlink client ID** and previously received **team IDs** from Sportlink, but will never transmit any WordPress content, configuration, files, or user data. Please check the [Terms of Service](https://sportlinkservices.freshdesk.com/nl/support/solutions/folders/9000176717) and [Privacy Policy](https://www.sportlink.nl/privacybeleid/) of Sportlink for more information.
+
+---
+
 ## 📜 Changelog
 
 See what’s new in each release on the [Changelog page](https://github.com/vincentbitter/fcm-sportlink/blob/main/CHANGELOG.md) or on the [Releases page](https://github.com/vincentbitter/fcm-sportlink/releases).
