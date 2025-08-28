@@ -52,7 +52,7 @@ You can install the plugin in one of two ways:
 
 ## 🔧 Configuration
 
-After activation, navigate to **Settings → FCM Sportlink** in your WordPress dashboard. Enter the Sportlink Client ID of your football club and choose if you want to sync automatically.
+After activation, navigate to **Football Club Manager → Sportlink** in your WordPress dashboard. Enter the Sportlink Client ID of your football club and choose if you want to sync automatically.
 
 ---
 

@@ -28,8 +28,8 @@ It automatically imports KNVB data from Sportlink, updates team rosters and play
 
 == Installation ==
 
-1. Upload the FCM-Sportlink plugin to your blog and activate it.
-3. Go to **Settings → FCM Sportlink** in your WordPress dashboard.
+1. Upload the plugin to your website and activate it.
+3. Go to **Football Club Manager → Sportlink** in your WordPress dashboard.
 4. Enter your club’s **Sportlink Client ID**.
 5. Choose whether to enable **automatic import**.
 6. Optionally, use the **“Sync Now”** button to manually fetch the latest data.
