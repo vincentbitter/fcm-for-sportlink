@@ -1,6 +1,6 @@
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/) ![GitHub Tag](https://img.shields.io/github/v/tag/vincentbitter/fcm-sportlink?label=Plugin)
 
-# ⚽ Football Club Manager - Sportlink
+# ⚽ Football Club Manager for Sportlink
 
 **Automatically import Sportlink data into the Football Club Manager WordPress plugin.**
 

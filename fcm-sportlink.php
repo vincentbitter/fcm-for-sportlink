@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: Football Club Manager - Sportlink
+ * Plugin Name: Football Club Manager for Sportlink
  * Plugin URI: https://github.com/vincentbitter/fcm-sportlink
  * Description: Import data from Sportlink to Football Club Manager.
  * Version: 0.4.0

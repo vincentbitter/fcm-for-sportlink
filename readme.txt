@@ -1,4 +1,4 @@
-=== Football Club Manager - Sportlink ===
+=== Football Club Manager for Sportlink ===
 Contributors: vincentbitter
 Tags: soccer, teams, matches, Sportlink, KNVB
 Requires at least: 6.8
