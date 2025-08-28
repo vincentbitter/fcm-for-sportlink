@@ -39,33 +39,33 @@ function fcmsl_options_sanitize_callback($input)
 
 function fcmsl_settings_init()
 {
-    // Register a new setting for "fcm-sportlink" page.
-    register_setting('fcm-sportlink', 'fcmsl_options', 'fcmsl_options_sanitize_callback');
+    // Register a new setting for "fcm-for-sportlink" page.
+    register_setting('fcm-for-sportlink', 'fcmsl_options', 'fcmsl_options_sanitize_callback');
 
-    // Register a new section in the "fcm-sportlink" page.
+    // Register a new section in the "fcm-for-sportlink" page.
     add_settings_section(
         'fcmsl_section_settings',
-        __('Settings', 'fcm-sportlink'),
+        __('Settings', 'fcm-for-sportlink'),
         null,
-        'fcm-sportlink'
+        'fcm-for-sportlink'
     );
 
-    // Register "Client ID" field: fcm-sportlink > fcmsl_section_settings > fcmsl_field_sportlink_clientid.
+    // Register "Client ID" field: fcm-for-sportlink > fcmsl_section_settings > fcmsl_field_sportlink_clientid.
     add_settings_field(
         'fcmsl_field_sportlink_clientid',
-        __('Sportlink client ID', 'fcm-sportlink'),
+        __('Sportlink client ID', 'fcm-for-sportlink'),
         'fcmsl_field_text_callback',
-        'fcm-sportlink',
+        'fcm-for-sportlink',
         'fcmsl_section_settings',
         array('label_for' => 'fcmsl_field_sportlink_clientid')
     );
 
-    // Register "Automatic import" toggle: fcm-sportlink > fcmsl_section_settings > fcmsl_field_automatic_import.
+    // Register "Automatic import" toggle: fcm-for-sportlink > fcmsl_section_settings > fcmsl_field_automatic_import.
     add_settings_field(
         'fcmsl_field_automatic_import',
-        __('Automatic import', 'fcm-sportlink'),
+        __('Automatic import', 'fcm-for-sportlink'),
         'fcmsl_field_toggle_callback',
-        'fcm-sportlink',
+        'fcm-for-sportlink',
         'fcmsl_section_settings',
         array('label_for' => 'fcmsl_field_automatic_import')
     );

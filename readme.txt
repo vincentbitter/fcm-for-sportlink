@@ -68,11 +68,11 @@ No. The plugin checks if a photo was manually uploaded and preserves it.
 It’s designed to work seamlessly with Football Club Manager. Custom styling may be needed depending on your theme.
 
 = Where can I report bugs or request features? =
-Visit the [GitHub Issues page](https://github.com/vincentbitter/fcm-sportlink/issues).
+Visit the [GitHub Issues page](https://github.com/vincentbitter/fcm-for-sportlink/issues).
 
 == Changelog ==
 
-Visit the [GitHub Releases page](https://github.com/vincentbitter/fcm-sportlink/releases).
+Visit the [GitHub Releases page](https://github.com/vincentbitter/fcm-for-sportlink/releases).
 
 == Disclaimer ==
 

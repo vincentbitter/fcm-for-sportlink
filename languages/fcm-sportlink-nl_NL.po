@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager for Sportlink\n"
-"POT-Creation-Date: 2025-08-28 20:42+0200\n"
-"PO-Revision-Date: 2025-08-28 20:43+0200\n"
+"POT-Creation-Date: 2025-08-28 20:54+0200\n"
+"PO-Revision-Date: 2025-08-28 20:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
@@ -78,11 +78,11 @@ msgstr "Importeer spelers"
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
-#: fcm-sportlink.php:37 fcm-sportlink.php:38
+#: fcm-for-sportlink.php:37 fcm-for-sportlink.php:38
 msgid "Sportlink"
 msgstr "Sportlink"
 
-#: fcm-sportlink.php:77 includes/settings.php:48
+#: fcm-for-sportlink.php:77 includes/settings.php:48
 msgid "Settings"
 msgstr "Instellingen"
 

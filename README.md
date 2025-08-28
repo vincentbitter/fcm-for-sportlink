@@ -1,4 +1,4 @@
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/) ![GitHub Tag](https://img.shields.io/github/v/tag/vincentbitter/fcm-sportlink?label=Plugin)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/) ![GitHub Tag](https://img.shields.io/github/v/tag/vincentbitter/fcm-for-sportlink?label=Plugin)
 
 # ⚽ Football Club Manager for Sportlink
 
@@ -34,7 +34,7 @@ You can install the plugin in one of two ways:
 
 ### Option 1: Download a Release
 
-1. Visit the [Releases page](https://github.com/vincentbitter/fcm-sportlink/releases).
+1. Visit the [Releases page](https://github.com/vincentbitter/fcm-for-sportlink/releases).
 2. Download the latest `.zip` file.
 3. In your WordPress dashboard, go to **Plugins → Add New → Upload Plugin**.
 4. Upload the `.zip` file and activate the plugin.
@@ -43,7 +43,7 @@ You can install the plugin in one of two ways:
 
 1. Open your terminal and run:
    ```
-   git clone https://github.com/vincentbitter/fcm-sportlink.git
+   git clone https://github.com/vincentbitter/fcm-for-sportlink.git
    ```
 2. Upload the cloned folder to your WordPress `/wp-content/plugins/` directory.
 3. Activate the plugin via the WordPress admin dashboard.
@@ -64,7 +64,7 @@ This plugin connects to the [Sportlink API](https://data.sportlink.com) to retri
 
 ## 📜 Changelog
 
-See what’s new in each release on the [Changelog page](https://github.com/vincentbitter/fcm-sportlink/blob/main/CHANGELOG.md) or on the [Releases page](https://github.com/vincentbitter/fcm-sportlink/releases).
+See what’s new in each release on the [Changelog page](https://github.com/vincentbitter/fcm-for-sportlink/blob/main/CHANGELOG.md) or on the [Releases page](https://github.com/vincentbitter/fcm-for-sportlink/releases).
 
 ---
 
@@ -99,14 +99,14 @@ Yes! There’s a “Sync Now” button in the plugin settings that lets you fetc
 It’s designed to work seamlessly with Football Club Manager. While it should play nicely with most themes, custom styling may be needed depending on your setup.
 
 ❔ **Where can I report bugs or request features?**  
-Head over to the [Issues tab](https://github.com/vincentbitter/fcm-sportlink/issues) on GitHub to report bugs or suggest new features.
+Head over to the [Issues tab](https://github.com/vincentbitter/fcm-for-sportlink/issues) on GitHub to report bugs or suggest new features.
 
 ---
 
 ## 🤝 Contributing & Support
 
 Found a bug or have a feature request?  
-Please open an issue on [GitHub](https://github.com/vincentbitter/fcm-sportlink/issues).
+Please open an issue on [GitHub](https://github.com/vincentbitter/fcm-for-sportlink/issues).
 
 Want to contribute? Fork the repo and submit a pull request — all help is welcome!
 
