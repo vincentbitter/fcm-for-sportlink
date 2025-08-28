@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2025-08-28
+
+### 📚 Documentation
+
+- Disclaimer and FAQ about relation with Sportlink.
+- Correct navigation instruction for configuration.
+
+### ⚙️  Miscellaneous Tasks
+
+- Project renamed to "Football Club Manager for Sportlink" to avoid confusion.
+- Slug renamed to match plugin name.
+
 ## [0.4.0] - 2025-08-26
 
 ### 📚 Documentation
