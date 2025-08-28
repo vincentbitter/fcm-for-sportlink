@@ -73,6 +73,9 @@ See what’s new in each release on the [Changelog page](https://github.com/vinc
 ❔ **What is Sportlink, and why should I integrate it with Football Club Manager?**  
 Sportlink is a platform used by many Dutch football clubs to manage match schedules, team data, and results. Integrating it with Football Club Manager allows you to automatically display up-to-date information on your WordPress site without manual input.
 
+? **Is this plugin developed or supported by Sportlink?**
+No. This plugin is an independent project and is not developed, endorsed, or affiliated with Sportlink. It is designed to integrate with Sportlink's data services, but all development and support are provided by the open-source community.
+
 ❔ **Do I need coding experience to use this plugin?**  
 Not at all! Once installed and configured, the plugin handles the data import automatically. You just need access to your WordPress dashboard and Sportlink Client ID.
 
@@ -112,3 +115,9 @@ Want to contribute? Fork the repo and submit a pull request — all help is welc
 ## 📄 License
 
 This plugin is licensed under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+---
+
+## ⚠️ Disclaimer
+
+This plugin is **not developed, endorsed, or affiliated with Sportlink** in any way. All references to Sportlink are solely for compatibility and integration purposes.
