@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2025-08-28
+
+### 📚 Documentation
+
+- Disclaimer and FAQ about relation with Sportlink.
+
+### ⚙️  Miscellaneous Tasks
+
+- Project renamed to "Football Club Manager for Sportlink" to avoid confusion.
+
 ## [0.4.0] - 2025-08-26
 
 ### 📚 Documentation
