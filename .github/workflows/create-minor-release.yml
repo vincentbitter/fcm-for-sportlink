@@ -14,6 +14,9 @@ jobs:
         with:
           versionSpec: "6.3.x"
 
+      - name: Install SVN
+        run: sudo apt-get install -y subversion
+
       - name: Use git-cliff
         uses: kenji-miyake/setup-git-cliff@v2
 
