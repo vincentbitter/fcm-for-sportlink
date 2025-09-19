@@ -2,16 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.6.0] - 2025-09-19
-
-### 📚 Documentation
-
-- WordPress repository assets.
-
-### ⚙️  Miscellaneous Tasks
-
-- Release to WordPress Plugin Repository.
-
 ## [0.5.0] - 2025-08-28
 
 ### 📚 Documentation
