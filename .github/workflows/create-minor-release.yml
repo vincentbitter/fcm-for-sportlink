@@ -65,3 +65,35 @@ jobs:
             -F release-notes.md
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - name: Checkout WordPress SVN repo
+        run: |
+          svn checkout https://plugins.svn.wordpress.org/fcm-for-sportlink svn-wordpress
+
+      - name: Copy release files to SVN
+        run: |
+          mkdir temp
+          unzip ${{github.workspace}}/${{ github.event.repository.name }}.zip -d temp
+          rsync -av --delete temp/${{ github.event.repository.name }}/ svn-wordpress/trunk/
+
+      - name: Copy assets to SVN
+        run: |
+          rsync -av .wordpress-org/ svn-wordpress/assets/
+
+      - name: Add new files to SVN
+        run: |
+          cd svn-wordpress
+          svn add --force * --auto-props --parents --depth infinity -q
+
+      - name: Create SVN tag
+        run: |
+          cd svn-wordpress
+          svn copy trunk tags/${{ env.GitVersion_FullSemVer }}
+
+      - name: Commit trunk and assets
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          cd svn-wordpress
+          svn commit --username "$SVN_USERNAME" --password "$SVN_PASSWORD" -m "Deploy version ${{ env.GitVersion_FullSemVer }}"
