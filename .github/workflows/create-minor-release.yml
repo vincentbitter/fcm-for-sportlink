@@ -77,7 +77,7 @@ jobs:
         run: |
           mkdir temp
           unzip ${{github.workspace}}/${{ github.event.repository.name }}.zip -d temp
-          rsync -av --delete temp/${{ github.event.repository.name }}/ svn-wordpress/trunk/
+          rsync -av --delete temp/ svn-wordpress/trunk/
 
       - name: Copy assets to SVN
         run: |
