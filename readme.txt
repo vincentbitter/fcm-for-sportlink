@@ -14,14 +14,14 @@ Automatically import Sportlink data into the Football Club Manager WordPress plu
 
 This plugin bridges the gap between Sportlink and [Football Club Manager](https://wordpress.org/plugins/football-club-manager/), enabling seamless synchronization of teams, players, and matches directly into your WordPress site.
 
-It automatically imports KNVB data from Sportlink, updates team rosters and player profiles, downloads player photos, and syncs match schedules and (soon) results and league standings.
+It automatically imports KNVB data from Sportlink, updates team rosters and player profiles, downloads player photos, and syncs matches and league standings.
 
 == Features ==
 
 * Automatic import of KNVB data from Sportlink
 * Update team rosters and player profiles
 * Download player photos from Sportlink (smart detection prevents overwriting manually uploaded images)
-* Sync match schedules (now available!) and results (coming soon!)
+* Sync match schedules and results
 * Import league standings (coming soon!)
 * Manual import to apply changes faster and test the integration
 * Easy integration with Football Club Manager

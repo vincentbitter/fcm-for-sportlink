@@ -9,6 +9,7 @@ require_once('class-sportlink-exception.php');
 require_once('class-sportlink-team.php');
 require_once('class-sportlink-player.php');
 require_once('class-sportlink-match.php');
+require_once('class-sportlink-match-result.php');
 
 class FCMSL_Sportlink_API
 {
@@ -67,6 +68,20 @@ class FCMSL_Sportlink_API
     }
 
     /**
+     * Retrieves a list of all match results from Sportlink.
+     * Limited to 365 days in the past and maximum of 10,000 matches.
+     * 
+     * @return array List of FCMSL_Match_Result objects.
+     */
+    public function get_match_results(): array
+    {
+        return $this->get_json_array('uitslagen', array(
+            'aantaldagen' => 365,
+            'aantalregels' => 10000
+        ), FCMSL_Match_Result::class);
+    }
+
+    /**
      * Retrieves a JSON array from the Sportlink API and converts it into an array of objects.
      *
      * @param string $slug The Sportlink API endpoint to retrieve data from.
@@ -108,9 +123,11 @@ class FCMSL_Sportlink_API
     private function map_to_class_instance($data, $class)
     {
         $obj = new $class();
-        foreach ($data as $key => $value)
+        foreach ($data as $key => $value) {
+            $key = str_replace('-', '_', $key);
             if (property_exists($obj, $key))
                 $obj->{$key} = sanitize_text_field($value);
+        }
         return $obj;
     }
 

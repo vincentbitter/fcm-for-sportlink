@@ -7,7 +7,7 @@ if (! defined('ABSPATH')) {
 require_once('class-importer.php');
 require_once(ABSPATH . "wp-admin" . '/includes/image.php');
 
-class FCMSL_Match_Importer extends FCMSL_Importer
+class FCMSL_Match_Result_Importer extends FCMSL_Importer
 {
     private $_team_id_by_code = array();
     private $_match_code_by_id = array();
@@ -20,7 +20,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
     /**
      * Retrieve a list of all scheduled matched from Sportlink.
      *
-     * @return array List of FCMSL_Match objects.
+     * @return array List of FCMSL_Match_Result objects.
      */
     protected function get_entities()
     {
@@ -35,13 +35,17 @@ class FCMSL_Match_Importer extends FCMSL_Importer
                 $this->_team_id_by_code[$teamcode] = $team->ID;
         }
 
-        return $this->_api->get_schedule();
+        $results = $this->_api->get_match_results();
+        foreach ($results as $result) {
+            $result->isAway = array_key_exists($result->uitteamid, $this->_team_id_by_code) ? 1 : 0;
+        }
+        return $results;
     }
 
     /**
      * Check if the given entity and post represent the same match.
      *
-     * @param FCMSL_Match $entity The Sportlink Match entity.
+     * @param FCMSL_Match_Result $entity The Sportlink Match Result entity.
      * @param WP_Post $post The post object representing the match.
      * @return bool True if the entity and post have the same matchcode, false otherwise.
      */
@@ -58,7 +62,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      * Update a match
      *
      * @param WP_Post $post The post object representing the match.
-     * @param FCMSL_Match $entity The Sportlink Match to update the post for
+     * @param FCMSL_Match_result $entity The Sportlink Match Result to update the post for
      * @return bool Whether the post was updated.
      */
     protected function handle_updated_post($post, $entity)
@@ -82,7 +86,12 @@ class FCMSL_Match_Importer extends FCMSL_Importer
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_starttime', $entity->aanvangstijd) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_team', $this->_team_id_by_code[$entity->team()]) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_opponent', $entity->opponent()) || $dirty;
-        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_away', $entity->isAway()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_away', $entity->isAway) || $dirty;
+
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_goals_for', $entity->matchGoalsFor()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_goals_against', $entity->matchGoalsAgainst()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_goals_forFinal', $entity->matchGoalsForFinal()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_goals_againstFinal', $entity->matchGoalsAgainstFinal()) || $dirty;
 
         $team_id = $this->_team_id_by_code[$entity->team()];
         if ($team_id != $meta_data['_fcmanager_match_team'][0]) {
@@ -105,7 +114,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
     /**
      * Create a new match
      *
-     * @param FCMSL_Match $entity The Sportlink Match to create a post for
+     * @param FCMSL_Match_Result $entity The Sportlink Match to create a post for
      * @return int The ID of the newly created post
      */
     protected function handle_new_post($entity)
@@ -120,7 +129,12 @@ class FCMSL_Match_Importer extends FCMSL_Importer
                 '_fcmanager_match_starttime' => $entity->aanvangstijd,
                 '_fcmanager_match_team' => $this->_team_id_by_code[$entity->team()],
                 '_fcmanager_match_opponent' => $entity->opponent(),
-                '_fcmanager_match_away' => $entity->isAway(),
+                '_fcmanager_match_away' => $entity->isAway,
+
+                '_fcmanager_match_goals_for' => $entity->matchGoalsFor(),
+                '_fcmanager_match_goals_against' => $entity->matchGoalsAgainst(),
+                '_fcmanager_match_goals_forFinal' => $entity->matchGoalsForFinal(),
+                '_fcmanager_match_goals_againstFinal' => $entity->matchGoalsAgainstFinal()
             )
         );
         return wp_insert_post($post);
@@ -134,6 +148,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      */
     protected function handle_obsolete_post($post)
     {
-        // Never delete matches, as they appear in the match results if canceled.
+        // Never remove matches, because results might just not be in yet, or are no longer available via the API.
+        return false;
     }
 }
