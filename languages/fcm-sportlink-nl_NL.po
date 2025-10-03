@@ -47,7 +47,7 @@ msgstr "Importeren nog niet mogelijk"
 #, php-format
 msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items."
 msgstr ""
-"%1$s Nieuwe items en %2$s gewijzigd items geïmporteerd. %3$s Items "
+"%1$s Nieuwe en %2$s gewijzigde items geïmporteerd. %3$s Items "
 "verwijderd."
 
 #: admin/page_sportlink.php:69
