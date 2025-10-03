@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2025-10-03
+
+### 🚀 Features
+
+- Import scheduled matches manually and automatically.
+- Import match results manually and automatically.
+
+### 🐛 Bug Fixes
+
+- Prevent missing references.
+- Timeout for Sportlink API increased from 5 to 120 seconds.
+- Typo in NL translation.
+
+### ⚡ Performance
+
+- Only store teams that are imported from Sportlink in cache.
+
 ## [0.6.0] - 2025-09-19
 
 ### 📚 Documentation
