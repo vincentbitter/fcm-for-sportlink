@@ -13,7 +13,7 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 - 🔄 Automatic import of KNVB data from Sportlink
 - 👥 Update team rosters and player profiles
 - 🖼️ Download player photos from Sportlink
-- 📅 Sync match schedules and results (coming soon!)
+- 📅 Sync match schedules (now available!) and results (coming soon!)
 - 🏆 Import league standings (coming soon!)
 - 🛠️ Easy integration with Football Club Manager
 - 🧩 Manual import to apply changes faster and test the integration

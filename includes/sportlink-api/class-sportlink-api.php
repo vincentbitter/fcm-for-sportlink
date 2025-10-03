@@ -8,6 +8,7 @@ require_once('class-sportlink-error.php');
 require_once('class-sportlink-exception.php');
 require_once('class-sportlink-team.php');
 require_once('class-sportlink-player.php');
+require_once('class-sportlink-match.php');
 
 class FCMSL_Sportlink_API
 {
@@ -49,6 +50,20 @@ class FCMSL_Sportlink_API
             $player->teamcode = $teamcode;
         }
         return $players;
+    }
+
+    /**
+     * Retrieves a list of all scheduled matches from Sportlink.
+     * Limited to 365 days in the future and maximum of 10,000 matches.
+     * 
+     * @return array List of FCMSL_Match objects.
+     */
+    public function get_schedule(): array
+    {
+        return $this->get_json_array('programma', array(
+            'aantaldagen' => 365,
+            'aantalregels' => 10000
+        ), FCMSL_Match::class);
     }
 
     /**
@@ -114,6 +129,12 @@ class FCMSL_Sportlink_API
         $response_code = wp_remote_retrieve_response_code($response);
         if ((!is_wp_error($response)) && (200 === $response_code)) {
             return $response['body'];
+        } else if (is_wp_error($response)) {
+            $error = new FCMSL_Sportlink_Error();
+            $error->http_response_code = $response_code;
+            $error->code = sanitize_text_field($response->get_error_code());
+            $error->message = sanitize_text_field($response->get_error_message());
+            throw new FCMSL_Sportlink_Exception(esc_html__('Failed to retrieve data from Sportlink API.', 'fcm-for-sportlink'), $error);
         } else {
             $json = json_decode($response['body'], true);
             $error = $this->map_to_class_instance($json['error'], FCMSL_Sportlink_Error::class);

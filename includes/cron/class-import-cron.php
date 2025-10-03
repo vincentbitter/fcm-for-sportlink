@@ -7,6 +7,8 @@ if (! defined('ABSPATH')) {
 require_once(dirname(__FILE__) . '/../sportlink-api/class-sportlink-api.php');
 require_once(dirname(__FILE__) . '/../importers/class-team-importer.php');
 require_once(dirname(__FILE__) . '/../importers/class-player-importer.php');
+require_once(dirname(__FILE__) . '/../importers/class-match-importer.php');
+
 add_action('fcmsl_import_cron_hook', function () {
     (new FCMSL_Import_Cron())->run();
 });
@@ -23,8 +25,8 @@ class FCMSL_Import_Cron
         $importer->import();
         $importer = new FCMSL_Player_Importer($api);
         $importer->import();
-        // $importer = new FCMSL_Match_Importer($api);
-        // $importer->import();
+        $importer = new FCMSL_Match_Importer($api);
+        $importer->import();
     }
 
     public function enable()

@@ -5,6 +5,7 @@ if (! defined('ABSPATH')) {
 
 require_once(dirname(__FILE__) . '/../includes/importers/class-team-importer.php');
 require_once(dirname(__FILE__) . '/../includes/importers/class-player-importer.php');
+require_once(dirname(__FILE__) . '/../includes/importers/class-match-importer.php');
 
 function fcmsl_page_sportlink()
 {
@@ -53,8 +54,8 @@ function fcmsl_page_sportlink()
                                         $importer = new FCMSL_Team_Importer($api);
                                     else if (isset($_POST['fcmsl_import_players']))
                                         $importer = new FCMSL_Player_Importer($api);
-                                    // else if (isset($_POST['fcmsl_import_matches']))
-                                    //     $importer = new FCMSL_Match_Importer($api);
+                                    else if (isset($_POST['fcmsl_import_matches']))
+                                        $importer = new FCMSL_Match_Importer($api);
 
                                     if (!isset($importer)) {
                                         echo '<div class="error"><p>' . esc_html__('Import not implemented yet', 'fcm-for-sportlink') . '</p></div>';
