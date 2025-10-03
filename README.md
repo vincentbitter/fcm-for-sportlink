@@ -86,7 +86,7 @@ Data is synchronized hourly.
 
 - Team rosters and player profiles
 - Player photos
-- Match schedules and results _(coming soon!)_
+- Match schedules and results
 - League standings _(coming soon!)_
 
 ❔ **Can player photos still be uploaded in WordPress, or will these be overridden?**  
