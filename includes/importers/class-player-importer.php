@@ -43,10 +43,11 @@ class FCMSL_Player_Importer extends FCMSL_Importer
         $this->_team_id_by_code = array();
         foreach ($teams as $team) {
             $teamcode = get_post_meta($team->ID, '_fcmanager_team_external_id', true);
-            $this->_team_id_by_code[$teamcode] = $team->ID;
 
-            if ($teamcode)
+            if ($teamcode) {
+                $this->_team_id_by_code[$teamcode] = $team->ID;
                 $entities = array_merge($entities, $this->_api->get_players($teamcode));
+            }
         }
 
         $entities = array_filter($entities, function ($entity) {
