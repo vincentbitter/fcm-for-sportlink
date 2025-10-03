@@ -4,6 +4,9 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+require_once(dirname(__FILE__) . '/../sportlink-api/class-sportlink-api.php');
+require_once(dirname(__FILE__) . '/../importers/class-team-importer.php');
+require_once(dirname(__FILE__) . '/../importers/class-player-importer.php');
 add_action('fcmsl_import_cron_hook', function () {
     (new FCMSL_Import_Cron())->run();
 });
