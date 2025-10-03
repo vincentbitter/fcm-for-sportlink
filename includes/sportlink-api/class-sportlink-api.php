@@ -110,7 +110,7 @@ class FCMSL_Sportlink_API
     {
         $args['client_id'] = $this->_client_id;
         $query_params = '?' . http_build_query($args);
-        $response = wp_remote_get(self::$_base_url . $slug . $query_params);
+        $response = wp_remote_get(self::$_base_url . $slug . $query_params, array('timeout' => 120));
         $response_code = wp_remote_retrieve_response_code($response);
         if ((!is_wp_error($response)) && (200 === $response_code)) {
             return $response['body'];
