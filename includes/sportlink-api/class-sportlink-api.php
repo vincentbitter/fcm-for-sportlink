@@ -69,7 +69,7 @@ class FCMSL_Sportlink_API
 
     /**
      * Retrieves a list of all match results from Sportlink.
-     * Limited to 365 days in the past and maximum of 10,000 matches.
+     * Limited to 365 days (52 weeks) in the past and maximum of 10,000 matches.
      * 
      * @return array List of FCMSL_Match_Result objects.
      */
@@ -77,7 +77,8 @@ class FCMSL_Sportlink_API
     {
         return $this->get_json_array('uitslagen', array(
             'aantaldagen' => 365,
-            'aantalregels' => 10000
+            'aantalregels' => 10000,
+            'weekoffset' => -52
         ), FCMSL_Match_Result::class);
     }
 
