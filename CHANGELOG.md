@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 2025-10-19
+
+### 🚀 Features
+
+- Load match results from last year instead of week.
+
+### 🐛 Bug Fixes
+
+- Update 0-values in match results.
+
 ## [0.7.0] - 2025-10-03
 
 ### 🚀 Features
