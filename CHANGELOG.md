@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2026-02-08
+
+### 🚀 Features
+
+- Import birthdays
+
 ## [0.8.0] - 2025-10-19
 
 ### 🚀 Features
