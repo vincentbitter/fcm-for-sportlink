@@ -54,8 +54,21 @@ abstract class FCMSL_Importer
 
     protected function get_posts()
     {
+        if (is_array($this->get_post_type())) {
+            $result = [];
+            foreach ($this->get_post_type() as $post_type) {
+                $result = array_merge($result, $this->get_posts_of_type($post_type));
+            }
+            return $result;
+        }
+
+        return $this->get_posts_of_type($this->get_post_type());
+    }
+
+    private function get_posts_of_type($post_type)
+    {
         return get_posts(array(
-            'post_type' => $this->get_post_type(),
+            'post_type' => $post_type,
             'post_status' => array('publish', 'pending', 'draft', 'future', 'private', 'inherit', 'trash'),
             'posts_per_page' => -1
         ));

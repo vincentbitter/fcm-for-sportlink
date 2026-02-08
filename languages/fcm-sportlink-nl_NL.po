@@ -1,85 +1,89 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Football Club Manager for Sportlink\n"
-"POT-Creation-Date: 2025-10-04 00:44+0200\n"
-"PO-Revision-Date: 2025-10-04 00:45+0200\n"
+"POT-Creation-Date: 2026-02-08 14:29+0100\n"
+"PO-Revision-Date: 2026-02-08 14:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Vincent Bitter\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: "
 "__;_x;_n;_e;esc_attr__;esc_attr_x;esc_attr_e;esc_html__;esc_html_x;esc_html_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/page_sportlink.php:28
+#: admin/page_sportlink.php:29
 msgid ""
 "Please hook WP-cron into the system task scheduler to enable automatic "
 "import."
 msgstr ""
 "Gebruikt WP-cron via de system task scheduler om automatisch te importeren."
 
-#: admin/page_sportlink.php:29
+#: admin/page_sportlink.php:30
 msgid "More info"
 msgstr "Meer info"
 
-#: admin/page_sportlink.php:37
+#: admin/page_sportlink.php:38
 msgid "Save settings"
 msgstr "Instellingen opslaan"
 
-#: admin/page_sportlink.php:46
+#: admin/page_sportlink.php:47
 msgid "Manual import"
 msgstr "Handmatig importeren"
 
-#: admin/page_sportlink.php:51
+#: admin/page_sportlink.php:52
 msgid "Nonce verification failed"
 msgstr "Nonce-verificatie mislukt"
 
-#: admin/page_sportlink.php:64
+#: admin/page_sportlink.php:71
 msgid "Import not implemented yet"
 msgstr "Importeren nog niet mogelijk"
 
-#: admin/page_sportlink.php:69
+#: admin/page_sportlink.php:76
 #, php-format
 msgid "Imported %1$s new items, updated %2$s items, and deleted %3$s items."
 msgstr ""
 "%1$s Nieuwe en %2$s gewijzigde items geïmporteerd. %3$s Items verwijderd."
 
-#: admin/page_sportlink.php:73
+#: admin/page_sportlink.php:80
 msgid "Response from Sportlink"
 msgstr "Antwoord van Sportlink"
 
-#: admin/page_sportlink.php:74
+#: admin/page_sportlink.php:81
 msgid "Error message"
 msgstr "Foutmelding"
 
-#: admin/page_sportlink.php:75
+#: admin/page_sportlink.php:82
 msgid "Error code"
 msgstr "Foutcode"
 
-#: admin/page_sportlink.php:76
+#: admin/page_sportlink.php:83
 msgid "HTTP Code"
 msgstr "HTTP Code"
 
-#: admin/page_sportlink.php:86
+#: admin/page_sportlink.php:93
 msgid "Import teams"
 msgstr "Importeer teams"
 
-#: admin/page_sportlink.php:87
+#: admin/page_sportlink.php:94
 msgid "Import players"
 msgstr "Importeer spelers"
 
-#: admin/page_sportlink.php:88
+#: admin/page_sportlink.php:95
 msgid "Import matches"
 msgstr "Importeer wedstrijden"
 
-#: admin/page_sportlink.php:89
+#: admin/page_sportlink.php:96
 msgid "Import match results"
 msgstr "Importeer uitslagen"
+
+#: admin/page_sportlink.php:97
+msgid "Import birthdays"
+msgstr "Importeer verjaardagen"
 
 #: fcm-for-sportlink.php:37 fcm-for-sportlink.php:38
 msgid "Sportlink"
@@ -97,7 +101,7 @@ msgstr "Sportlink client ID"
 msgid "Automatic import"
 msgstr "Automatisch importeren"
 
-#: includes/sportlink-api/class-sportlink-api.php:154
-#: includes/sportlink-api/class-sportlink-api.php:159
+#: includes/sportlink-api/class-sportlink-api.php:161
+#: includes/sportlink-api/class-sportlink-api.php:166
 msgid "Failed to retrieve data from Sportlink API."
 msgstr "Data ophalen uit de Sportlink API is niet gelukt."

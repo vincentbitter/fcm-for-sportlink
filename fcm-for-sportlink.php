@@ -39,7 +39,7 @@ function fcmsl_register_administration_menu()
         'manage_options',
         'fcm-for-sportlink',
         'fcmsl_page_sportlink',
-        20
+        5
     );
 }
 

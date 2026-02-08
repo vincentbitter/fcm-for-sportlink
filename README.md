@@ -15,6 +15,7 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 - 🖼️ Download player photos from Sportlink
 - 📅 Sync match schedules and results
 - 🏆 Import league standings (coming soon!)
+- 🎂 Import birthdays
 - 🛠️ Easy integration with Football Club Manager
 - 🧩 Manual import to apply changes faster and test the integration
 
@@ -22,7 +23,7 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 
 ## 📋 Requirements
 
-- WordPress 5.0 or higher
+- WordPress 6.8 or higher
 - PHP 7.4 or higher
 - [Football Club Manager](https://wordpress.org/plugins/football-club-manager/) plugin installed and activated
 
@@ -70,16 +71,16 @@ See what’s new in each release on the [Changelog page](https://github.com/vinc
 
 ## ❓ FAQ
 
-❔ **What is Sportlink, and why should I integrate it with Football Club Manager?**  
+❔ **What is Sportlink, and why should I integrate it with Football Club Manager?**
 Sportlink is a platform used by many Dutch football clubs to manage match schedules, team data, and results. Integrating it with Football Club Manager allows you to automatically display up-to-date information on your WordPress site without manual input.
 
 ? **Is this plugin developed or supported by Sportlink?**
 No. This plugin is an independent project and is not developed, endorsed, or affiliated with Sportlink. It is designed to integrate with Sportlink's data services, but all development and support are provided by the open-source community.
 
-❔ **Do I need coding experience to use this plugin?**  
+❔ **Do I need coding experience to use this plugin?**
 Not at all! Once installed and configured, the plugin handles the data import automatically. You just need access to your WordPress dashboard and Sportlink Client ID.
 
-❔ **How often does the plugin sync data from Sportlink?**  
+❔ **How often does the plugin sync data from Sportlink?**
 Data is synchronized hourly.
 
 ❔ **What kind of data is imported from Sportlink?**
@@ -88,17 +89,28 @@ Data is synchronized hourly.
 - Player photos
 - Match schedules and results
 - League standings _(coming soon!)_
+- Birthdays
 
-❔ **Can player photos still be uploaded in WordPress, or will these be overridden?**  
+❔ **Why are not all players of my club are imported?**
+Only public profiles from Sportlink are imported. The Sportlink API doesn't provide access to the names of players that are not set to public in Voetbal.nl. Please ask your members to set their profile to public so it is shown in both Voetbal.nl and on your website.
+
+❔ **Birthdays are all in 1900, is this a bug?**
+It's not a bug, unfortunately. Sportlink only exposes the day and month via their API. That's why the year is set to 1900. Using this year, makes sure FCM won't show the age, as it excludes all years <= 1900. The import will never override dates of birth, so it's safe to complete the date of birth by filling in the year yourself.
+
+❔ **Why are not all birthdays set in Football Club Manager while they are available in Sportlink?**
+Sportlink only exposes birthdays for the next 21 days. That's why the import needs to be done frequently. Ideally, via the automated import job.
+If a birthday is missing that is in the next 21 days, make sure you synchronized the data. This can be done manually or via the automated import.
+
+❔ **Can player photos still be uploaded in WordPress, or will these be overridden?**
 The plugin contains a smart algorithm to check if the current player photo was manually uploaded in WordPress. If so, it won't override it with the photos from Sportlink.
 
 ❔ **Can I manually trigger a sync?**  
 Yes! There’s a “Sync Now” button in the plugin settings that lets you fetch the latest data on demand.
 
-❔ **Is this plugin compatible with other WordPress themes or plugins?**  
+❔ **Is this plugin compatible with other WordPress themes or plugins?**
 It’s designed to work seamlessly with Football Club Manager. While it should play nicely with most themes, custom styling may be needed depending on your setup.
 
-❔ **Where can I report bugs or request features?**  
+❔ **Where can I report bugs or request features?**
 Head over to the [Issues tab](https://github.com/vincentbitter/fcm-for-sportlink/issues) on GitHub to report bugs or suggest new features.
 
 ---

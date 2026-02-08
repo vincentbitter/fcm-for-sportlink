@@ -9,6 +9,7 @@ require_once(dirname(__FILE__) . '/../importers/class-team-importer.php');
 require_once(dirname(__FILE__) . '/../importers/class-player-importer.php');
 require_once(dirname(__FILE__) . '/../importers/class-match-importer.php');
 require_once(dirname(__FILE__) . '/../importers/class-match-result-importer.php');
+require_once(dirname(__FILE__) . '/../importers/class-birthday-importer.php');
 
 add_action('fcmsl_import_cron_hook', function () {
     (new FCMSL_Import_Cron())->run();
@@ -29,6 +30,8 @@ class FCMSL_Import_Cron
         $importer = new FCMSL_Match_Importer($api);
         $importer->import();
         $importer = new FCMSL_Match_Result_Importer($api);
+        $importer->import();
+        $importer = new FCMSL_Birthday_Importer($api);
         $importer->import();
     }
 

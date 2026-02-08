@@ -7,6 +7,7 @@ require_once(dirname(__FILE__) . '/../includes/importers/class-team-importer.php
 require_once(dirname(__FILE__) . '/../includes/importers/class-player-importer.php');
 require_once(dirname(__FILE__) . '/../includes/importers/class-match-importer.php');
 require_once(dirname(__FILE__) . '/../includes/importers/class-match-result-importer.php');
+require_once(dirname(__FILE__) . '/../includes/importers/class-birthday-importer.php');
 
 function fcmsl_page_sportlink()
 {
@@ -51,6 +52,10 @@ function fcmsl_page_sportlink()
                                     echo '<div class="error"><p>' . esc_html__('Nonce verification failed', 'fcm-for-sportlink') . '</p></div>';
                                 } else {
                                     $api = new FCMSL_Sportlink_API(get_option('fcmsl_options')['fcmsl_field_sportlink_clientid']);
+
+                                    /** @var FCMSL_Importer */
+                                    $importer = null;
+
                                     if (isset($_POST['fcmsl_import_teams']))
                                         $importer = new FCMSL_Team_Importer($api);
                                     else if (isset($_POST['fcmsl_import_players']))
@@ -59,8 +64,10 @@ function fcmsl_page_sportlink()
                                         $importer = new FCMSL_Match_Importer($api);
                                     else if (isset($_POST['fcmsl_import_match_results']))
                                         $importer = new FCMSL_Match_Result_Importer($api);
+                                    else if (isset($_POST['fcmsl_import_birthdays']))
+                                        $importer = new FCMSL_Birthday_Importer($api);
 
-                                    if (!isset($importer)) {
+                                    if ($importer == null) {
                                         echo '<div class="error"><p>' . esc_html__('Import not implemented yet', 'fcm-for-sportlink') . '</p></div>';
                                     } else {
                                         try {
@@ -87,6 +94,7 @@ function fcmsl_page_sportlink()
                                 <?php submit_button(__('Import players', 'fcm-for-sportlink'), 'primary', 'fcmsl_import_players', false); ?>
                                 <?php submit_button(__('Import matches', 'fcm-for-sportlink'), 'primary', 'fcmsl_import_matches', false); ?>
                                 <?php submit_button(__('Import match results', 'fcm-for-sportlink'), 'primary', 'fcmsl_import_match_results', false); ?>
+                                <?php submit_button(__('Import birthdays', 'fcm-for-sportlink'), 'primary', 'fcmsl_import_birthdays', false); ?>
                             </form>
                         </div>
                     </div>

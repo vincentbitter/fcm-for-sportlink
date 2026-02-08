@@ -166,7 +166,9 @@ class FCMSL_Player_Importer extends FCMSL_Importer
                 '_fcmanager_player_external_id' => $entity->relatiecode,
                 '_fcmanager_player_first_name' => $entity->voornaam,
                 '_fcmanager_player_last_name' => $entity->last_name(),
-                '_fcmanager_player_team' => $this->_team_id_by_code[$entity->teamcode]
+                '_fcmanager_player_team' => $this->_team_id_by_code[$entity->teamcode],
+                '_fcmanager_player_publish_birthday' => FCManager_Settings::instance()->player->publish_birthday_by_default() ? 'true' : 'false',
+                '_fcmanager_player_publish_age' => FCManager_Settings::instance()->player->publish_age_by_default() ? 'true' : 'false',
             )
         );
         $post_id = wp_insert_post($post);

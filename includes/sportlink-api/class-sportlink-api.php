@@ -10,6 +10,7 @@ require_once('class-sportlink-team.php');
 require_once('class-sportlink-player.php');
 require_once('class-sportlink-match.php');
 require_once('class-sportlink-match-result.php');
+require_once('class-sportlink-birthday.php');
 
 class FCMSL_Sportlink_API
 {
@@ -80,6 +81,11 @@ class FCMSL_Sportlink_API
             'aantalregels' => 10000,
             'weekoffset' => -52
         ), FCMSL_Match_Result::class);
+    }
+
+    public function get_birthdays(): array
+    {
+        return $this->get_json_array('verjaardagen', array(), FCMSL_Birthday::class);
     }
 
     /**

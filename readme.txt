@@ -23,6 +23,7 @@ It automatically imports KNVB data from Sportlink, updates team rosters and play
 * Download player photos from Sportlink (smart detection prevents overwriting manually uploaded images)
 * Sync match schedules and results
 * Import league standings (coming soon!)
+* Import birthdays
 * Manual import to apply changes faster and test the integration
 * Easy integration with Football Club Manager
 
@@ -58,11 +59,28 @@ Not at all! Once installed and configured, the plugin handles the data import au
 = How often does the plugin sync data from Sportlink? =
 Data is synchronized hourly using WordPress cron.
 
+= What kind of data is imported from Sportlink? =
+- Team rosters and player profiles
+- Player photos
+- Match schedules and results
+- League standings _(coming soon!)_
+- Birthdays
+
+= Why are not all players of my club are imported? =
+Only public profiles from Sportlink are imported. The Sportlink API doesn't provide access to the names of players that are not set to public in Voetbal.nl. Please ask your members to set their profile to public so it is shown in both Voetbal.nl and on your website.
+
+= Birthdays are all in 1900, is this a bug? =
+It's not a bug, unfortunately. Sportlink only exposes the day and month via their API. That's why the year is set to 1900. Using this year, makes sure FCM won't show the age, as it excludes all years <= 1900. The import will never override dates of birth, so it's safe to complete the date of birth by filling in the year yourself.
+
+= Why are not all birthdays set in Football Club Manager while they are available in Sportlink? =
+Sportlink only exposes birthdays for the next 21 days. That's why the import needs to be done frequently. Ideally, via the automated import job.
+If a birthday is missing that is in the next 21 days, make sure you synchronized the data. This can be done manually or via the automated import.
+
+= Can player photos still be uploaded in WordPress, or will these be overridden? =
+The plugin contains a smart algorithm to check if the current player photo was manually uploaded in WordPress. If so, it won't override it with the photos from Sportlink.
+
 = Can I manually trigger a sync? =
 Yes! There’s a “Sync Now” button in the plugin settings.
-
-= Will manually uploaded player photos be overwritten? =
-No. The plugin checks if a photo was manually uploaded and preserves it.
 
 = Is this plugin compatible with other WordPress themes or plugins? =
 It’s designed to work seamlessly with Football Club Manager. Custom styling may be needed depending on your theme.
