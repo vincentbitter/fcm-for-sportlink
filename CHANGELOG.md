@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0] - 2026-05-07
+
+### 🐛 Bug Fixes
+
+- Import game facilitators
+
 ## [0.10.0] - 2026-05-07
 
 ### 🚀 Features
