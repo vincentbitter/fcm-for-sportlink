@@ -11,6 +11,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
 {
     private $_team_id_by_code = array();
     private $_match_code_by_id = array();
+    private $_referee_id_by_name = array();
 
     protected function get_post_type()
     {
@@ -33,6 +34,15 @@ class FCMSL_Match_Importer extends FCMSL_Importer
             $teamcode = get_post_meta($team->ID, '_fcmanager_team_external_id', true);
             if ($teamcode)
                 $this->_team_id_by_code[$teamcode] = $team->ID;
+        }
+
+        $referees = get_posts(array(
+            'post_type' => 'fcmanager_referee',
+            'numberposts' => -1
+        ));
+        $this->_referee_id_by_name = array();
+        foreach ($referees as $referee) {
+            $this->_referee_id_by_name[$referee->post_title] = $referee->ID;
         }
 
         return $this->_api->get_schedule();
@@ -83,6 +93,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_team', $this->_team_id_by_code[$entity->team()]) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_opponent', $entity->opponent()) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_away', $entity->isAway()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_referee', $this->get_or_create_referee_id($entity->referee())) || $dirty;
 
         $team_id = $this->_team_id_by_code[$entity->team()];
         if ($team_id != $meta_data['_fcmanager_match_team'][0]) {
@@ -110,6 +121,8 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      */
     protected function handle_new_post($entity)
     {
+        $referee_id = $this->get_or_create_referee_id($entity->referee());
+
         $post = array(
             'post_title' => $entity->wedstrijd,
             'post_type' => $this->get_post_type(),
@@ -121,6 +134,7 @@ class FCMSL_Match_Importer extends FCMSL_Importer
                 '_fcmanager_match_team' => $this->_team_id_by_code[$entity->team()],
                 '_fcmanager_match_opponent' => $entity->opponent(),
                 '_fcmanager_match_away' => $entity->isAway(),
+                '_fcmanager_match_referee' => $referee_id,
             )
         );
         return wp_insert_post($post);
@@ -135,5 +149,37 @@ class FCMSL_Match_Importer extends FCMSL_Importer
     protected function handle_obsolete_post($post)
     {
         // Never delete matches, as they appear in the match results if canceled.
+    }
+
+    /**
+     * Get the ID of a referee by name, creating a new referee if not found.
+     *
+     * @param FCMSL_Referee $referee The referee to get or create.
+     * @return int The ID of the referee or null if there is no referee name.
+     */
+    private function get_or_create_referee_id($referee)
+    {
+        $name = $referee->name();
+        if (!$name) {
+            return null;
+        }
+
+        if (isset($this->_referee_id_by_name[$name])) {
+            return $this->_referee_id_by_name[$name];
+        }
+
+        $post_id = wp_insert_post(array(
+            'post_title' => $name,
+            'post_type' => 'fcmanager_referee',
+            'post_status' => 'publish',
+            'meta_input' => array(
+                '_fcmanager_referee_first_name' => $referee->first_name,
+                '_fcmanager_referee_last_name' => $referee->last_name,
+                '_fcmanager_referee_publish_birthday' => FCManager_Settings::instance()->referee->publish_birthday_by_default() ? 'true' : 'false',
+                '_fcmanager_referee_publish_age' => FCManager_Settings::instance()->referee->publish_age_by_default() ? 'true' : 'false',
+            )
+        ));
+        $this->_referee_id_by_name[$name] = $post_id;
+        return $post_id;
     }
 }

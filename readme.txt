@@ -2,7 +2,7 @@
 Contributors: vincentbitter
 Tags: soccer, teams, matches, Sportlink, KNVB
 Requires at least: 6.8
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 0.9.0
 Requires PHP: 7.4
 License: GPLv3
@@ -24,6 +24,7 @@ It automatically imports KNVB data from Sportlink, updates team rosters and play
 * Sync match schedules and results
 * Import league standings (coming soon!)
 * Import birthdays
+* Import referees
 * Manual import to apply changes faster and test the integration
 * Easy integration with Football Club Manager
 

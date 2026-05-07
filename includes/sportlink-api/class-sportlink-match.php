@@ -4,6 +4,8 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+require_once('class-sportlink-referee.php');
+
 class FCMSL_Match
 {
     public $wedstrijddatum;
@@ -15,6 +17,8 @@ class FCMSL_Match
     public $uitteam;
     public $aanvangstijd;
     public $wedstrijd;
+    public $scheidsrechter;
+    public $scheidsrechters;
 
     public function date()
     {
@@ -34,5 +38,10 @@ class FCMSL_Match
     public function opponent()
     {
         return $this->isAway() ? $this->thuisteam : $this->uitteam;
+    }
+
+    public function referee()
+    {
+        return new FCMSL_Referee($this->scheidsrechter, $this->scheidsrechters);
     }
 }

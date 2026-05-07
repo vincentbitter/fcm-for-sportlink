@@ -16,6 +16,7 @@ This plugin bridges the gap between Sportlink and [Football Club Manager](https:
 - 📅 Sync match schedules and results
 - 🏆 Import league standings (coming soon!)
 - 🎂 Import birthdays
+- 👨‍⚖️ Import referees
 - 🛠️ Easy integration with Football Club Manager
 - 🧩 Manual import to apply changes faster and test the integration
 
