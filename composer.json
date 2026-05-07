@@ -1,0 +1,9 @@
+{
+    "name": "vincentbitter/fcm-for-sportlink",
+    "description": "Automatically import Sportlink data into the Football Club Manager WordPress plugin.",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.0",
+        "phpunit/phpunit": "^10.0"
+    }
+}
