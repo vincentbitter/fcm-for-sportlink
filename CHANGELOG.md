@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0] - 2026-05-07
+
+### 🚀 Features
+
+- Import referees
+
+### 🐛 Bug Fixes
+
+- Move Sportlink down in the admin menu.
+- Update matches with 0 if no goals were made.
+- Update matches with 0 if no goals were made.
+
+### ⚙️  Miscellaneous Tasks
+
+- WordPress stubs to improve development experience.
+
 ## [0.9.0] - 2026-02-08
 
 ### 🚀 Features
