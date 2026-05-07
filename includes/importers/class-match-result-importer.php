@@ -104,7 +104,11 @@ class FCMSL_Match_Result_Importer extends FCMSL_Importer
 
     private function update_metadata_if_needed($post_id, $meta_data, $key, $new_value)
     {
-        if (((!isset($meta_data[$key]) || empty($meta_data[$key])) && $new_value !== '') || (isset($meta_data[$key]) && $meta_data[$key][0] != $new_value)) {
+        if (
+            ((!isset($meta_data[$key]) || empty($meta_data[$key])) && $new_value !== '') // Cleared
+            || (isset($meta_data[$key]) && $meta_data[$key][0] != $new_value) // Changed
+            || ($meta_data[$key][0] === 0 && $new_value == '') // 0 vs empty
+        ) {
             update_post_meta($post_id, $key, $new_value);
             return true;
         }
