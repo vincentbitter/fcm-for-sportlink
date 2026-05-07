@@ -14,7 +14,7 @@ class FCMSL_Referee
         if ($scheidsrechter) {
             $this->parse_name($scheidsrechter);
         } else if ($scheidsrechters) {
-            if (preg_match('/,\s*([^,]+)\s*\(Spelbegeleider\)/', $scheidsrechters, $matches)) {
+            if (preg_match('/([^,]+)\s*\(Spelbegeleider\)/', $scheidsrechters, $matches)) {
                 $this->parse_name($matches[1]);
             }
         }
