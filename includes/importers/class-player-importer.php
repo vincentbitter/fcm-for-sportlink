@@ -19,9 +19,7 @@ class FCMSL_Player_Importer extends FCMSL_Importer
 
     public function import()
     {
-        add_filter('fcmanager_skip_meta_box_save', '__return_true');
         $report = parent::import();
-        remove_filter('fcmanager_skip_meta_box_save', '__return_true');
         return $report;
     }
 
