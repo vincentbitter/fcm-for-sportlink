@@ -51,8 +51,10 @@ class FCMSL_Team_Importer extends FCMSL_Importer
     protected function handle_updated_post($post, $entity)
     {
         $dirty = false;
-        if ($post->post_title != $entity->teamnaam) {
-            $post->post_title = $entity->teamnaam;
+        if ($post->post_title != $entity->full_name()) {
+            $post->post_title = $entity->full_name();
+            $slug = sanitize_title($entity->full_name());
+            $post->post_name = $slug;
             $dirty = true;
         }
         if ($post->post_status != 'publish') {
@@ -75,7 +77,7 @@ class FCMSL_Team_Importer extends FCMSL_Importer
     protected function handle_new_post($entity)
     {
         $post = array(
-            'post_title' => $entity->teamnaam,
+            'post_title' => $entity->full_name(),
             'post_type' => $this->get_post_type(),
             'post_status' => 'publish',
             'meta_input' => array(
