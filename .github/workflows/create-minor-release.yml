@@ -19,6 +19,8 @@ jobs:
 
       - name: Use git-cliff
         uses: kenji-miyake/setup-git-cliff@v2
+        with:
+          version: "2.13.1"
 
       - name: Configure Git client
         run: |
