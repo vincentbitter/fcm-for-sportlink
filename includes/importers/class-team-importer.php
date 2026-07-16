@@ -22,7 +22,19 @@ class FCMSL_Team_Importer extends FCMSL_Importer
      */
     protected function get_entities()
     {
-        return $this->_api->get_teams();
+        $teams = $this->_api->get_teams();
+
+        foreach ($teams as $key => $team) {
+            if ($team->competitiesoort != 'regulier') {
+                foreach ($teams as $team2) {
+                    if ($team2->teamcode == $team->teamcode && $team2 != $team && $team2->competitiesoort == 'regulier') {
+                        unset($teams[$key]);
+                    }
+                }
+            }
+        }
+
+        return $teams;
     }
 
     /**
@@ -65,6 +77,15 @@ class FCMSL_Team_Importer extends FCMSL_Importer
         if ($dirty)
             wp_update_post($post);
 
+        $meta_data = get_post_meta($post->ID);
+        $age_category_key = '_fcmanager_team_age_category';
+        $override_age_category =
+            !array_key_exists($age_category_key, $meta_data)
+            || $entity->age_category() != null;
+
+        $dirty = $override_age_category && $this->update_metadata_if_needed($post->ID, $meta_data, $age_category_key, $entity->age_category()) || $dirty;
+        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_team_gender', $entity->gender()) || $dirty;
+
         return $dirty;
     }
 
@@ -81,7 +102,9 @@ class FCMSL_Team_Importer extends FCMSL_Importer
             'post_type' => $this->get_post_type(),
             'post_status' => 'publish',
             'meta_input' => array(
-                '_fcmanager_team_external_id' => $entity->teamcode
+                '_fcmanager_team_external_id' => $entity->teamcode,
+                '_fcmanager_team_age_category' => $entity->age_category() ?? FCManager_AgeCategory::YOUTH,
+                '_fcmanager_team_gender' => $entity->gender()
             )
         );
         return wp_insert_post($post);

@@ -89,6 +89,15 @@ abstract class FCMSL_Importer
             return ['created', get_post($post_id)];
     }
 
+    protected function update_metadata_if_needed($post_id, $meta_data, $key, $new_value)
+    {
+        if ((!isset($meta_data[$key]) && $new_value) || (isset($meta_data[$key]) && $meta_data[$key][0] != $new_value)) {
+            update_post_meta($post_id, $key, $new_value);
+            return true;
+        }
+        return false;
+    }
+
     abstract protected function get_post_type();
 
     abstract protected function get_entities();

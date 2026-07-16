@@ -102,7 +102,7 @@ class FCMSL_Match_Result_Importer extends FCMSL_Importer
         return $dirty;
     }
 
-    private function update_metadata_if_needed($post_id, $meta_data, $key, $new_value)
+    protected function update_metadata_if_needed($post_id, $meta_data, $key, $new_value)
     {
         if (
             ((!isset($meta_data[$key]) || empty($meta_data[$key]) || $meta_data[$key][0] === '') && $new_value !== '') // Cleared
