@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.0] - 2026-07-16
+
+### 🚀 Features
+
+- Add playing day to team name if not Saturday.
+- Import team age category and gender.
+
+### 🐛 Bug Fixes
+
+- Remove performance trick avoiding meta box saves on import.
+
+### ⚙️  Miscellaneous Tasks
+
+- Use static version for git-cliff in to solve release issue.
+
 ## [0.11.0] - 2026-05-07
 
 ### 🐛 Bug Fixes
