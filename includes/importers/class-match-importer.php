@@ -134,7 +134,13 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      */
     protected function handle_obsolete_post($post)
     {
-        // Never delete matches, as they appear in the match results if canceled.
+        $matchcode = get_post_meta($post->ID, '_fcmanager_match_external_id', true);
+
+        if ($matchcode) {
+            // Only delete planned matches, as played matches will appear in the results import.
+            if (get_post_meta($post->ID, '_fcmanager_match_date', true) > wp_date('Y-m-d'))
+                return wp_trash_post($post->ID, false);
+        }
     }
 
     /**
