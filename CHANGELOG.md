@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.15.0] - 2026-08-07
+
+### 🚀 Features
+
+- Delete future matches if removed from Sportlink.
+
+### 🐛 Bug Fixes
+
+- Do not reset team for match if the team does not exist.
+
 ## [0.14.0] - 2026-08-07
 
 ### 🚀 Features
