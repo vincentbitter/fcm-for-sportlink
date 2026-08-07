@@ -84,7 +84,8 @@ class FCMSL_Match_Result_Importer extends FCMSL_Importer
         $meta_data = get_post_meta($post->ID);
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_date', $entity->date()) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_starttime', $entity->aanvangstijd) || $dirty;
-        $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_team', $this->_team_id_by_code[$entity->team()]) || $dirty;
+        if ($entity->team() > 0 && array_key_exists($entity->team(), $this->_team_id_by_code))
+            $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_team', $this->_team_id_by_code[$entity->team()]) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_opponent', $entity->opponent()) || $dirty;
         $dirty = $this->update_metadata_if_needed($post->ID, $meta_data, '_fcmanager_match_away', $entity->isAway) || $dirty;
 
