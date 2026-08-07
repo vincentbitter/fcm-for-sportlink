@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.0] - 2026-08-07
+
+### 🐛 Bug Fixes
+
+- Do not reset team for match if the team does not exist.
+- Do not reset team for match when importing result.
+
 ## [0.12.0] - 2026-07-16
 
 ### 🚀 Features
