@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.0] - 2026-08-07
+
+### 🚀 Features
+
+- Tested with WordPress 7.0.
+
 ## [0.13.0] - 2026-08-07
 
 ### 🐛 Bug Fixes
