@@ -38,7 +38,6 @@ function fcmsl_register_administration_menu()
         'manage_options',
         'fcm-for-sportlink',
         'fcmsl_page_sportlink',
-        8
     );
 }
 
@@ -67,7 +66,7 @@ function fcmsl_admin_menu()
     fcmsl_register_administration_menu();
 }
 
-add_action('admin_menu', 'fcmsl_admin_menu', 20);
+add_action('fcmanager_admin_menu_extra', 'fcmsl_admin_menu', 10);
 
 
 // Show settings link on plugins page
