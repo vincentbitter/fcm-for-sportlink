@@ -11,7 +11,6 @@
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: fcm-for-sportlink
- * Domain Path: /languages
  * Requires Plugins: football-club-manager
  */
 
