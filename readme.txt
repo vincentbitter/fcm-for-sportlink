@@ -2,7 +2,7 @@
 Contributors: vincentbitter
 Tags: soccer, teams, matches, Sportlink, KNVB
 Requires at least: 6.8
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 0.16.0
 Requires PHP: 7.4
 License: GPLv3
