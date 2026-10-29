@@ -12,6 +12,8 @@ class FCMSL_Match_Importer extends FCMSL_Importer
     private $_team_id_by_code = array();
     private $_match_code_by_id = array();
     private $_referee_id_by_name = array();
+    private $_competition_by_sportlink_id = array();
+    private $_pool_id_by_competition_id_and_name = array();
 
     protected function get_post_type()
     {
@@ -45,6 +47,28 @@ class FCMSL_Match_Importer extends FCMSL_Importer
             $this->_referee_id_by_name[$referee->post_title] = $referee->ID;
         }
 
+        $competitions = get_posts(array(
+            'post_type' => 'fcmanager_comp',
+            'numberposts' => -1
+        ));
+        $this->_competition_by_sportlink_id = array();
+        foreach ($competitions as $competition) {
+            $sportlink_id = get_post_meta($competition->ID, '_fcmanager_comp_external_id', true);
+            if ($sportlink_id)
+                $this->_competition_by_sportlink_id[$sportlink_id] = $competition;
+        }
+
+        $competitions_ids = array_map(fn($comp) => $comp->ID, array_values($this->_competition_by_sportlink_id));
+        $pools = get_posts(array(
+            'post_type' => 'fcmanager_pool',
+            'numberposts' => -1
+        ));
+        $this->_pool_id_by_competition_id_and_name = array();
+        foreach ($pools as $pool) {
+            if (in_array($pool->post_parent, $competitions_ids))
+                $this->_pool_id_by_competition_id_and_name[$pool->post_parent][$pool->post_title] = $pool->ID;
+        }
+
         return $this->_api->get_schedule();
     }
 
@@ -73,6 +97,9 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      */
     protected function handle_updated_post($post, $entity)
     {
+        $competition_id = $this->get_or_create_competition_id($entity->competitie, new DateTime($entity->date()));
+        $pool_id = $this->get_or_create_pool_id($competition_id, $entity->klasse, $entity->poule);
+
         $dirty = false;
         if ($post->post_title != $entity->wedstrijd) {
             $post->post_title = $entity->wedstrijd;
@@ -80,6 +107,10 @@ class FCMSL_Match_Importer extends FCMSL_Importer
         }
         if ($post->post_status != 'publish') {
             $post->post_status = 'publish';
+            $dirty = true;
+        }
+        if ($post->post_parent != $pool_id) {
+            $post->post_parent = $pool_id;
             $dirty = true;
         }
 
@@ -107,12 +138,15 @@ class FCMSL_Match_Importer extends FCMSL_Importer
      */
     protected function handle_new_post($entity)
     {
+        $competition_id = $this->get_or_create_competition_id($entity->competitie, new DateTime($entity->date()));
+        $pool_id = $this->get_or_create_pool_id($competition_id, $entity->klasse, $entity->poule);
         $referee_id = $this->get_or_create_referee_id($entity->referee());
 
         $post = array(
             'post_title' => $entity->wedstrijd,
             'post_type' => $this->get_post_type(),
             'post_status' => 'publish',
+            'post_parent' => $pool_id,
             'meta_input' => array(
                 '_fcmanager_match_external_id' => $entity->wedstrijdcode,
                 '_fcmanager_match_date' => $entity->date(),
@@ -173,5 +207,82 @@ class FCMSL_Match_Importer extends FCMSL_Importer
         ));
         $this->_referee_id_by_name[$name] = $post_id;
         return $post_id;
+    }
+
+    private function get_or_create_competition_id($competitie, $date)
+    {
+        if (!$competitie)
+            return null;
+
+        $parts = explode(' ', $competitie, 2);
+        $sportlink_id = $parts[0];
+        $name = $parts[1];
+
+        if (array_key_exists($sportlink_id, $this->_competition_by_sportlink_id)) {
+            $competition = $this->_competition_by_sportlink_id[$sportlink_id];
+
+            $start_date = get_post_meta($competition->ID, '_fcmanager_comp_start_date', true);
+            $start_date = $start_date ? new DateTime($start_date) : null;
+
+            $end_date = get_post_meta($competition->ID, '_fcmanager_comp_end_date', true);
+            $end_date = $end_date ? new DateTime($end_date) : null;
+
+            if (!$start_date || $start_date > $date) {
+                update_post_meta($competition->ID, '_fcmanager_comp_start_date', $date->format('Y-m-d'));
+            }
+            if (!$end_date || $end_date < $date) {
+                update_post_meta($competition->ID, '_fcmanager_comp_end_date', $date->format('Y-m-d'));
+            }
+            if ($name != $competition->post_title) {
+                wp_update_post([
+                    'ID' => $competition->ID,
+                    'post_title' => $name,
+                    'post_name' => sanitize_title($name),
+                ]);
+            }
+
+            return $competition->ID;
+        }
+
+        $id = wp_insert_post(array(
+            'post_title' => $parts[1],
+            'post_name' => sanitize_title($parts[1]),
+            'post_type' => 'fcmanager_comp',
+            'post_status' => 'publish',
+            'meta_input' => array(
+                '_fcmanager_comp_external_id' => $parts[0],
+                '_fcmanager_comp_start_date' => $date->format('Y-m-d'),
+                '_fcmanager_comp_end_date' => $date->format('Y-m-d'),
+            )
+        ));
+        $this->_competition_by_sportlink_id[$sportlink_id] = get_post($id);
+        return $id;
+    }
+
+    private function get_or_create_pool_id($competition_id, $klasse, $poule)
+    {
+        if (!$competition_id || !$klasse || !$poule)
+            return null;
+
+        $klassepoule = $klasse . ' ' . $poule;
+        if (!array_key_exists($competition_id, $this->_pool_id_by_competition_id_and_name))
+            $this->_pool_id_by_competition_id_and_name[$competition_id] = array();
+
+        if (array_key_exists($klassepoule, $this->_pool_id_by_competition_id_and_name[$competition_id]))
+            return $this->_pool_id_by_competition_id_and_name[$competition_id][$klassepoule];
+
+        $id = wp_insert_post(array(
+            'post_title' => $klassepoule,
+            'post_name' => sanitize_title($klassepoule),
+            'post_type' => 'fcmanager_pool',
+            'post_status' => 'publish',
+            'post_parent' => $competition_id,
+            'meta_input' => array(
+                '_fcmanager_pool_division' => $klasse,
+                '_fcmanager_pool_name' => $poule
+            )
+        ));
+        $this->_pool_id_by_competition_id_and_name[$competition_id][$klassepoule] = $id;
+        return $id;
     }
 }

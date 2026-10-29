@@ -19,6 +19,9 @@ class FCMSL_Match
     public $wedstrijd;
     public $scheidsrechter;
     public $scheidsrechters;
+    public $competitie;
+    public $klasse;
+    public $poule;
 
     public function date()
     {
