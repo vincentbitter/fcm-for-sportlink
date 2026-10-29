@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.16.0] - 2026-10-29
+
+### 🚀 Features
+
+- Use translations from GlotPress.
+- Import competitions and pools.
+
+### 🐛 Bug Fixes
+
+- Use new menu hook to guarantee correct order.
+
 ## [0.15.0] - 2026-08-07
 
 ### 🚀 Features
